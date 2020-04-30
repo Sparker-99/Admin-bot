@@ -20,7 +20,7 @@ Latest binary builds are always available at:
 #### Launching
 Windows
 1. Configure **config.js**
-2. Open console inside the **admin bot's** directory
+2. Open console inside the **admin bot's** directory, type `npm i` and hit enter
 3. Run `StartAdminBot.cmd`
 ___
 
