@@ -29,12 +29,12 @@ ___
 
 Create a discord application from [discord developers](https://discordapp.com/developers/applications),click on add bot and copy the token if you dont know how read this [Wiki](https://github.com/Sparker-99/Admin-bot/wiki/Creating-and-adding-a-bot)
 
-* `token` - Insert the bot token
-* `prefix` - Insert the bot prefix that is used before commands like !help
-* `adminid` - Insert the id from **IW4MAdminSettings.json** like the image below
+* `token` &mdash; Insert the bot token
+* `prefix` &mdash; Insert the bot prefix that is used before commands like !help
+* `adminid` &mdash; Insert the id from **IW4MAdminSettings.json** like the image below
 
 ![](https://i.ibb.co/mSNc5zk/df.png)
 
-* `colour` - You can insert a hex colour code to get that colour for all embed discord messages
+* `colour` &mdash; You can insert a hex colour code to get that colour for all embed discord messages
 
  Note: colour is not mandatory you can keep the field empty
