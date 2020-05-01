@@ -16,7 +16,7 @@ Latest binary builds are always available at:
 * [Node.js 7.6](https://nodejs.org/en/download) *or newer*  
 #### Installation
 1. Install Node.js
-2.  Extract `Admin bot.zip`  
+2.  Extract `Admin-bot.zip`  
 #### Launching
 Windows
 1. Configure **config.js**
@@ -31,7 +31,7 @@ Create a discord application from [discord developers](https://discordapp.com/de
 
 * `token` &mdash; Insert the bot token
 * `prefix` &mdash; Insert the bot prefix that is used before commands like !help
-* `adminid` &mdash; Insert the id from **IW4MAdminSettings.json** like the image below
+* `adminid` &mdash; Insert the `Id` from **IW4MAdminSettings.json** like the image below
 
 ![](https://i.ibb.co/mSNc5zk/df.png)
 
