@@ -11,7 +11,7 @@ exports.run = async (client, message, args) => {
             var gamemap = new Array();
             for (i = 0; i < 10; i++) {
                 if (response.servers[i]) {
-                    hostnames[i] = '🔹 ' + response.servers[i].hostname.replace(/[-\/\\^$*+?.()\d[\]{}]/g, '');
+                    hostnames[i] = '🔹 ' + response.servers[i].hostname.replace(/\^[0-9:;c]/g, '');
                     players[i] = response.servers[i].clientnum + '/' + response.servers[i].maxclientnum;
                     gamemap[i] = response.servers[i].map;
                 }
@@ -30,7 +30,6 @@ exports.run = async (client, message, args) => {
         const playerstats = infos[1];
         const map = infos[2];
         const uptime = secondsToString(response.uptime);
-
         const embed = new Discord.RichEmbed()
             .setTitle('Status')
             .setThumbnail('https://raidmax.org/IW4MAdmin/img/iw4adminicon-3.png')
