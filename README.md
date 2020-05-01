@@ -27,7 +27,7 @@ ___
 ### Configuration
 #### Initial Configuration
 
-Create a discord application from [discord developers](https://discordapp.com/developers/applications),click on add bot and copy the token if you dont know how read this [Wiki](https://github.com/Sparker-99/Admin-bot/wiki/Creating-and-adding-a-bot)
+Create a discord application from [discord developers](https://discordapp.com/developers/applications), click on add bot and copy the token if you dont know how read this [Wiki](https://github.com/Sparker-99/Admin-bot/wiki/Creating-and-adding-a-bot)
 
 * `token` &mdash; Insert the bot token
 * `prefix` &mdash; Insert the bot prefix that is used before commands like !help
