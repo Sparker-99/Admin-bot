@@ -14,16 +14,27 @@ Latest binary builds are always available at:
 **Admin bot** requires less effort to get up and running.
 #### Prerequisites
 * [Node.js 7.6](https://nodejs.org/en/download) *or newer*  
-#### Installation
+#### Installation for Windows:
 1. Install Node.js
 2.  Extract `Admin-bot.zip`  
-#### Launching
-Windows
-1. Configure **config.js**
-2. Open console inside the **admin bot's** directory, type `npm i` and hit enter
-3. Run `StartAdminBot.cmd`
+3. Configure **config.js**
+4. Open console inside the **admin bot's** directory, type `npm i` and hit enter
+5. Run `StartAdminBot.cmd`
 ___
+#### Installation for Linux (Ubuntu 20:04):
+Open Terminal and type:
+1. `sudo apt install nodejs npm` 
+2. `mkdir DiscordBot`
+3. `cd DiscordBot`
+4. `git clone https://github.com/Sparker-99/Admin-bot.git`
+5. `cd Admin-bot`
+6. `npm i`
+7. `nano config.json` (add your BOT token and admin ID)
+8. `sudo chmod +x ./StartAdminBot.sh`
+9. `./StartAdminBot.sh`
 
+To host the discordBot on any other Linux distro You have to install nodejs and npm for your distro, then the rest is the same on all other Linux Distro.
+___
 ### Configuration
 #### Initial Configuration
 
