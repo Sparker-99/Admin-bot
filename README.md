@@ -18,24 +18,22 @@ Latest binary builds are always available at:
 1. Install Node.js
 2.  Extract `Admin-bot.zip`  
 #### Launching
-Windows
+- Windows
+  - Configure **config.js**
+  - Open console inside the **admin bot's** directory, type `npm i` and hit enter
+  - Run `StartAdminBot.cmd`
 
-1. Configure **config.js**
-2. Open console inside the **admin bot's** directory, type `npm i` and hit enter
-3. Run `StartAdminBot.cmd`
-
-Linux (Ubuntu 20:04)
-
-Open Terminal and type:
-1. `sudo apt install nodejs npm` 
-2. `mkdir DiscordBot`
-3. `cd DiscordBot`
-4. `git clone https://github.com/Sparker-99/Admin-bot.git`
-5. `cd Admin-bot`
-6. `npm i`
-7. `nano config.json` (add your BOT token and admin ID)
-8. `sudo chmod +x ./StartAdminBot.sh`
-9. `./StartAdminBot.sh`
+- Linux (Ubuntu 20:04)
+  - Open Terminal and type:
+  - `sudo apt install nodejs npm` 
+  - `mkdir DiscordBot`
+  - `cd DiscordBot`
+  - `git clone https://github.com/Sparker-99/Admin-bot.git`
+  - `cd Admin-bot`
+  - `npm i`
+  - `nano config.json` (add your BOT token and admin ID)
+  - `sudo chmod +x ./StartAdminBot.sh`
+  - `./StartAdminBot.sh`
 
 To host the discordBot on any other Linux distro You have to install nodejs and npm for your distro, then the rest is the same on all other Linux Distro.
 ___
@@ -54,3 +52,5 @@ Create a discord application from [discord developers](https://discordapp.com/de
 * `colour` &mdash; You can insert a hex colour code to get that colour for all embed discord messages
 
  Note: colour is not mandatory you can keep the field empty
+ 
+ Linux readme by [Zwambro](https://github.com/Zwambro)
