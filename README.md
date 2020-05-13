@@ -31,7 +31,7 @@ Latest binary builds are always available at:
   - `git clone https://github.com/Sparker-99/Admin-bot.git`
   - `cd Admin-bot`
   - `npm i`
-  - `nano config.json` (add your BOT token and admin ID)
+  - `nano config.json` (add your token, prefix and adminid)
   - `sudo chmod +x ./StartAdminBot.sh`
   - `./StartAdminBot.sh`
 
