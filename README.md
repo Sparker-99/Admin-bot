@@ -15,13 +15,13 @@ Latest binary builds are always available at:
 #### Prerequisites
 * [Node.js 7.6](https://nodejs.org/en/download) *or newer*  
 #### Installation
-1. Install Node.js
-2.  Extract `Admin-bot.zip`  
-#### Launching
+
 - Windows
-  - Configure **config.js**
+  - Install Node.js
+  - Extract `Admin-bot.zip`  
+  - Edit `config.js` (add your token, prefix and adminid | ownerid and color are optional)
   - Open console inside the **admin bot's** directory, type `npm i` and hit enter
-  - Run `StartAdminBot.cmd`
+  - Run `StartAdminBot.cmd` or `node index.js` in console
 
 - Linux (Ubuntu 20:04)
   - Open Terminal and type:
