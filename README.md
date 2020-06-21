@@ -1,6 +1,6 @@
 # Admin Bot
 ### Quick Start Guide
-### Version 1.0.0
+### Version 2.0.0
 _______
 ### About
 **Admin bot** is a discord bot written in [Node.js](https://nodejs.org). It allows you to view relatime game servers and [IW4M Admin](https://raidmax.org/IW4MAdmin/)'s status. Command handler and event handler is added so feel free to extend commands and events.
@@ -31,7 +31,7 @@ Latest binary builds are always available at:
   - `git clone https://github.com/Sparker-99/Admin-bot.git`
   - `cd Admin-bot`
   - `npm i`
-  - `nano config.json` (add your token, prefix and adminid)
+  - `nano config.json` (add your token, prefix and adminid | ownerid and color are optional)
   - `sudo chmod +x ./StartAdminBot.sh`
   - `./StartAdminBot.sh`
 
@@ -49,8 +49,17 @@ Create a discord application from [discord developers](https://discordapp.com/de
 
 ![](https://i.ibb.co/mSNc5zk/df.png)
 
-* `colour` &mdash; You can insert a hex colour code to get that colour for all embed discord messages
+ #### Optional Configuration
+ 
+ * `colour` &mdash; You can insert a hex colour code to get that colour for all embed discord messages
+ * `ownerid` &mdash; You can insert an administrator's or bot owner's client id to lock botinfo for administrator or bot owner
+ ___
 
- Note: colour is not mandatory you can keep the field empty
+### Changelog
+* Upgraded to Discord.Js v12
+* Made botinfo configurable
+* Added ownerid in config file to enable or disable botinfo command for public
+* Botinfo now shows host architecture and overall Ram usage
+* Code cleanup
  
  Linux readme by [Zwambro](https://github.com/Zwambro)
