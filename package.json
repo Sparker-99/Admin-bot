@@ -1,13 +1,13 @@
 {
   "name": "Adminbot",
-  "version": "1.0.0",
-  "description": "discord bot for admin",
+  "version": "2.0.0",
+  "description": "Discord bot for IW4M Admin",
   "main": "index.js",
   "author": "Sparker",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.5.1",
-    "enmap": "^5.2.4",
+    "discord.js": "^12.2.0",
+    "enmap": "^5.3.1",
     "fs": "0.0.1-security",
     "node-fetch": "^2.6.0",
     "os": "^0.1.1"

@@ -1,9 +1,8 @@
 const fetch = require('node-fetch');
 const Discord = require('discord.js');
-exports.run = async (client, message, args) => {
+exports.run = async (client, message) => {
     let response = await fetch('http://api.raidmax.org:5000/instance/' + client.config.adminid)
-        .then(res => res.json())
-        .then(json => json);
+        .then(res => res.json());
     if (response.servers) {
         function instancehandler() {
             var hostnames = new Array();
@@ -30,7 +29,7 @@ exports.run = async (client, message, args) => {
         const playerstats = infos[1];
         const map = infos[2];
         const uptime = secondsToString(response.uptime);
-        const embed = new Discord.RichEmbed()
+        const embed = new Discord.MessageEmbed()
             .setTitle('Status')
             .setThumbnail('https://raidmax.org/IW4MAdmin/img/iw4adminicon-3.png')
             .setColor(client.color)
@@ -40,9 +39,8 @@ exports.run = async (client, message, args) => {
             .addField('Map', map, true)
             .addField('Admin version', response.version, false)
             .addField('⌛ Uptime', uptime, false);
-
         message.channel.send(embed);
     } else {
-        message.channel.send('```css\nInstance with the provided admin id is not found```');
+        message.channel.send('```diff\n- Instance with the provided admin id is not found```');
     }
 }
