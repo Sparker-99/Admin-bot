@@ -1,7 +1,11 @@
 {
   "token": "",
   "prefix": "!",
-  "adminid": "",
+  "admin_id": "",
+  "presence_update_interval": "",
+  "presence_template": "",
   "colour": "",
+  "thumbnail_image_url": "",
+  "footer": "",
   "ownerid": ""
 }
