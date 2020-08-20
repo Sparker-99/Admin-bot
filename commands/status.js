@@ -1,6 +1,5 @@
 const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message) => {
-
     let infos = await client.function.fetchinfo(client.config.admin_id, 10);
     if (infos) {
         let onlineplayers = infos[1];
@@ -13,7 +12,6 @@ exports.run = async (client, message) => {
             converted[i] = onlineplayers[i] + '/' + totalplayers[i];
             mapalias[i] = client.function.getmap(mapcode[i]);
         }
-
         let stat = new MessageEmbed()
             .setTitle('Status')
             .setColor(client.color)

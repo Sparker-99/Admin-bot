@@ -13,15 +13,8 @@ module.exports = {
             console.log('No adminid detected in config file\nexiting....');
             process.exit();
         }
-        if (client.config.presence_update_interval) {
-            if (client.config.presence_update_interval < 600) {
-                console.log('Update interval should be more than 600 seconds (10 minutes)\nexiting....');
-                process.exit();
-            }
-            if (!(client.config.presence_template in [, 1, 2, 3])) {
-                console.log('Presence template must be among 1, 2 or 3\nexiting....');
-                process.exit();
-            }
+        if (!client.config.custom_presence) {
+            client.config.custom_presence = client.config.prefix + 'help';
         }
         if (client.config.colour) {
             client.color = '#' + client.config.colour.replace(/#/gi, '');
@@ -73,7 +66,7 @@ module.exports = {
     },
 
     getmap(console) {
-        var alias = "";
+        let alias = "";
         switch (console) {
             case "mp_railyard":
                 alias = "Railyard";
@@ -503,6 +496,45 @@ module.exports = {
                 break;
             case "mp_terminal_cls":
                 alias = "Terminal";
+                break;
+            case "mp_apartments":
+                alias = "Evac";
+                break;
+            case "mp_biodome":
+                alias = "Aquarium";
+                break;
+            case "mp_chinatown":
+                alias = "Exodus";
+                break;
+            case "mp_ethiopia":
+                alias = "Hunted";
+                break;
+            case "mp_havoc":
+                alias = "Havoc";
+                break;
+            case "mp_infection":
+                alias = "Infection";
+                break;
+            case "mp_metro":
+                alias = "Metro";
+                break;
+            case "mp_redwood":
+                alias = "Redwood";
+                break;
+            case "mp_sector":
+                alias = "Combine";
+                break;
+            case "mp_spire":
+                alias = "Breach";
+                break;
+            case "mp_stronghold":
+                alias = "Stronghold";
+                break;
+            case "mp_veiled":
+                alias = "Fringe";
+                break;
+            case "mp_nuketown_x":
+                alias = "Nuk3town";
                 break;
             case "mp_la":
                 alias = "Aftermath";

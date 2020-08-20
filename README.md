@@ -2,7 +2,7 @@
 
 ### Quick Start Guide
 
-### Version 2.1.0
+### Version 2.1.1
 
 _______
 
@@ -63,17 +63,10 @@ Create a discord application from [discord developers](https://discordapp.com/de
 
  #### Optional Configuration
 
-  + `presence_update_interval` &mdash; You can set bot's presence with players by inserting the update interval in seconds. Make sure to keep it minimum 600 (10 minutes) and add template number to *presence_template*
-
-  
-
-  + `presence_template` &mdash; You can set presence templates similar to the images below by inserting **1**, **2**, **3** respectively.
-
-  
-  ![](https://i.ibb.co/rZGZyGD/template-1.png)
-  ![](https://i.ibb.co/4PY217r/template-2.png)
-  ![](https://i.ibb.co/RN9t3YQ/template-3.png)
- 
+* `presence_update_interval` &mdash; You can set bot's custom presence. Use this following parameters below 
+  + `{m}` &mdash; max players count
+  + `{p}` &mdash; players online count 
+  + `{s}` &mdash; total server count
  * `colour` &mdash; You can insert a hex colour code to get that colour for all embed discord messages
  * `ownerid` &mdash; You can insert an administrator's or bot owner's client id to lock botinfo for administrator or bot owner
  * `thumbnail_image_url` &mdash; You can insert an image link to get custom thumbnail for all embed discord messages
@@ -82,10 +75,9 @@ Create a discord application from [discord developers](https://discordapp.com/de
 
 ### Changelog
 
-* Added presence templates
-* Made embed footer and embed thumbnail customizable
-* Map in status now shows map names instead of console names
-* Botinfo now shows overall ram usage and bot's ram usage seperately
+* Added presence customizer
+* Added Bo3 (T7) map aliases
+* Removed some packages
 * Code cleanup
 
  

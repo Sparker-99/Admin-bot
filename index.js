@@ -1,13 +1,10 @@
-const Discord = require("discord.js");
-const Enmap = require("enmap");
 const fs = require("fs");
+const Discord = require("discord.js");
 const client = new Discord.Client();
-const config = require("./config.json");
-const functions = require("./include/functions");
-client.function = functions;
-client.config = config;
+client.config = require("./config.json");
+client.function = require("./include/functions");
 
-functions.configcheck(client);
+client.function.configcheck(client);
 
 fs.readdir("./events/", (err, files) => {
   if (err) return console.error(err);
@@ -18,7 +15,8 @@ fs.readdir("./events/", (err, files) => {
   });
 });
 
-client.commands = new Enmap();
+client.commands = new Discord.Collection();
+
 fs.readdir("./commands/", (err, files) => {
   if (err) return console.error(err);
   files.forEach(file => {
@@ -29,4 +27,4 @@ fs.readdir("./commands/", (err, files) => {
   });
 });
 
-client.login(config.token);
+client.login(client.config.token);
