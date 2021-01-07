@@ -128,9 +128,6 @@ module.exports = {
             case "mp_vacant":
                 alias = "Vacant";
                 break;
-            case "mp_cargoship":
-                alias = "Wet Work";
-                break;
             case "mp_crash_snow":
                 alias = "Winter Crash";
                 break;
@@ -172,9 +169,6 @@ module.exports = {
                 break;
             case "mp_makin":
                 alias = "Makin";
-                break;
-            case "mp_outskirts":
-                alias = "Outskirts";
                 break;
             case "mp_roundhouse":
                 alias = "Roundhouse";
@@ -257,9 +251,6 @@ module.exports = {
             case "mp_brecourt":
                 alias = "Wasteland";
                 break;
-            case "mp_overgrown":
-                alias = "Overgrown";
-                break;
             case "mp_strike":
                 alias = "Strike";
                 break;
@@ -294,7 +285,7 @@ module.exports = {
                 alias = "Freighter";
                 break;
             case "mp_cargoship":
-                alias = "Cargoship";
+                alias = "Wet Work / Cargoship";
                 break;
             case "mp_shipment_long":
                 alias = "Shipment Long";
@@ -329,7 +320,7 @@ module.exports = {
             case "co_hunted":
                 alias = "Village";
                 break;
-            case "co_hunted":
+            case "mp_array":
                 alias = "Array";
                 break;
             case "mp_berlinwall2":
@@ -368,17 +359,11 @@ module.exports = {
             case "mp_hotel":
                 alias = "Hotel";
                 break;
-            case "mp_havoc":
-                alias = "Jungle";
-                break;
             case "mp_kowloon":
                 alias = "Kowloon";
                 break;
             case "mp_cosmodrome":
                 alias = "Launch";
-                break;
-            case "mp_nuked":
-                alias = "Nuketown";
                 break;
             case "mp_radiation":
                 alias = "Radiation";
@@ -390,7 +375,7 @@ module.exports = {
                 alias = "Stadium";
                 break;
             case "mp_outskirts":
-                alias = "Stockpile";
+                alias = "Outskirts / Stockpile";
                 break;
             case "mp_mountain":
                 alias = "Summit";
@@ -522,7 +507,7 @@ module.exports = {
                 alias = "Hunted";
                 break;
             case "mp_havoc":
-                alias = "Havoc";
+                alias = "Havoc / Jungle";
                 break;
             case "mp_infection":
                 alias = "Infection";
@@ -626,9 +611,6 @@ module.exports = {
             case "mp_paintball":
                 alias = "Rush";
                 break;
-            case "mp_dig":
-                alias = "Dig";
-                break;
             case "mp_frostbite":
                 alias = "Frost";
                 break;
@@ -717,7 +699,7 @@ module.exports = {
                 alias = "Ruins";
                 break;
             case "mp_dig":
-                alias = "Pharaoh";
+                alias = "Dig / Pharaoh";
                 break;
             case "mp_favela_iw6":
                 alias = "Favela";
