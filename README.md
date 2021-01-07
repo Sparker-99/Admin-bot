@@ -1,8 +1,17 @@
-# Admin Bot
+<div align="center">
+  <br />
+  <p>
+    <img src="https://i.ibb.co/qy2p4Lx/adminbot.png" width="546" alt="progressbar" />
 
-### Quick Start Guide
+  </p>
+  <br />
+  <p>
+    <a href="https://discord.gg/pJHSkZe"><img src="https://discord.com/api/guilds/389745592232050688/embed.png" alt="Discord server" /></a>
 
-### Version 2.1.1
+</p>
+</div>
+
+### Version 2.1.2
 
 _______
 
@@ -75,9 +84,9 @@ Create a discord application from [discord developers](https://discordapp.com/de
 
 ### Changelog
 
-* Added presence customizer
-* Added Bo3 (T7) map aliases
-* Removed some packages
+* Added Bot Update checker
+* Added Call of Duty Ghosts (IW6) map aliases
+* Updated dependencies
 * Code cleanup
 
  

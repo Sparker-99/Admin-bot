@@ -1,4 +1,6 @@
-module.exports = (client) => {
+const { vercheck } = require("../include/functions");
+
+module.exports =  async (client) => {
     async function presence() {
         let infos = await client.function.fetchinfo(client.config.admin_id);
         if (infos) {
@@ -10,5 +12,8 @@ module.exports = (client) => {
     }
     presence();
     setInterval(presence, 600000);
-    console.log('Bot is online with id ' + client.user.id);
+
+    let upcheck = await vercheck();
+    if (upcheck) console.log(upcheck);
+    console.log('\nBot is online with id ' + client.user.id);
 };

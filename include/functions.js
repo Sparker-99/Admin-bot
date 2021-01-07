@@ -18,19 +18,31 @@ module.exports = {
         }
         if (client.config.colour) {
             client.color = '#' + client.config.colour.replace(/#/gi, '');
-        } else {
+        } else
             client.color = '#007acc';
-        }
+
         if (client.config.thumbnail_image_url) {
             client.thumbnail = client.config.thumbnail_image_url;
-        } else {
+        } else
             client.thumbnail = 'https://raidmax.org/IW4MAdmin/img/iw4adminicon-3.png';
-        }
+
         if (client.config.footer) {
             client.footer = client.config.footer;
-        } else {
+        } else
             client.footer = 'Bot by Sparker, IW4M Admin by Raidmax';
-        }
+    },
+
+    async vercheck() {
+        let data = await fetch('https://api.github.com/repos/Sparker-99/Admin-bot/releases/latest')
+            .then((res) => res.json())
+            .catch(() => { console.log('\x1b[31mUpdate check failed Github is not reachable\x1b[0m') });
+
+        if (!data) return false;
+
+        if (require('../package.json').version.replace(/[^0-9]/g, '') >= data.tag_name.replace(/[^0-9]/g, ''))
+            return "\x1b[32mAdmin Bot is up to date\x1b[0m";
+        else
+            return "\x1b[33mAdmin bot version " + data.tag_name + " update is avaiable\x1b[0m";
     },
 
     timeformat(uptime) {
@@ -44,7 +56,7 @@ module.exports = {
     async fetchinfo(id, length) {
         let response = await fetch('http://api.raidmax.org:5000/instance/' + id)
             .then((res) => res.json())
-            .catch(() => { console.log('Masterserver not reachable') });
+            .catch(() => { console.log('\x1b[31mMasterserver not reachable\x1b[0m') });
         if (response && response.servers) {
             let hostnames = new Array();
             let players = new Array();
@@ -647,9 +659,116 @@ module.exports = {
             case "zm_transit":
                 alias = "Green Run/Bus Depot/Farm/Town";
                 break;
+            case "mp_prisonbreak":
+                alias = "Prision Break";
+                break;
+            case "mp_dart":
+                alias = "Octane";
+                break;
+            case "mp_lonestar":
+                alias = "Tremor";
+                break;
+            case "mp_frag":
+                alias = "Freight";
+                break;
+            case "mp_snow":
+                alias = "Whiteout";
+                break;
+            case "mp_fahrenheit":
+                alias = "Stormfront";
+                break;
+            case "mp_hashima":
+                alias = "Siege";
+                break;
+            case "mp_warhawk":
+                alias = "Warhawk";
+                break;
+            case "mp_sovereign":
+                alias = "Sovereign";
+                break;
+            case "mp_zebra":
+                alias = "Overload";
+                break;
+            case "mp_skeleton":
+                alias = "Stonehaven";
+                break;
+            case "mp_chasm":
+                alias = "Chasm";
+                break;
+            case "mp_flooded":
+                alias = "Flooded";
+                break;
+            case "mp_strikezone":
+                alias = "Strikezone";
+                break;
+            case "mp_descent_new":
+                alias = "Free Fall";
+                break;
+            case "mp_dome_ns":
+                alias = "Unearthed";
+                break;
+            case "mp_ca_impact":
+                alias = "Collision";
+                break;
+            case "mp_ca_behemoth":
+                alias = "Behemoth";
+                break;
+            case "mp_battery3":
+                alias = "Ruins";
+                break;
+            case "mp_dig":
+                alias = "Pharaoh";
+                break;
+            case "mp_favela_iw6":
+                alias = "Favela";
+                break;
+            case "mp_pirate":
+                alias = "Mutiny";
+                break;
+            case "mp_zulu":
+                alias = "Departed";
+                break;
+            case "mp_conflict":
+                alias = "Dynasty";
+                break;
+            case "mp_mine":
+                alias = "Goldrush";
+                break;
+            case "mp_shipment_ns":
+                alias = "Showtime";
+                break;
+            case "mp_zerosub":
+                alias = "Subzero";
+                break;
+            case "mp_boneyard_ns":
+                alias = "Ignition";
+                break;
+            case "mp_ca_red_river":
+                alias = "Containment";
+                break;
+            case "mp_ca_rumble":
+                alias = "Bayview";
+                break;
+            case "mp_swamp":
+                alias = "Fog";
+                break;
+            case "mp_alien_town":
+                alias = "Point of Contact";
+                break;
+            case "mp_alien_armory":
+                alias = "Nightfall";
+                break;
+            case "mp_alien_beacon":
+                alias = "Mayday";
+                break;
+            case "mp_alien_dlc3":
+                alias = "Awakening";
+                break;
+            case "mp_alien_last":
+                alias = "Exodus";
+                break;
             default:
                 alias = console;
-                break;
         }
         return alias;
     }
