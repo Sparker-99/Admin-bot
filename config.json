@@ -1,8 +1,10 @@
 {
   "token": "",
   "prefix": "!",
+  "webfronturl": "",
   "admin_id": "",
-  "custom_presence": "",
+  "results_perpage": "10",
+  "custom_presence": "with {p}/{m} players across {s} servers",
   "colour": "",
   "thumbnail_image_url": "",
   "footer": "",

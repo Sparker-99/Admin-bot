@@ -1,6 +1,5 @@
-const { vercheck } = require("../include/functions");
-
-module.exports =  async (client) => {
+const fetch = require('node-fetch');
+module.exports = async (client) => {
     async function presence() {
         let infos = await client.function.fetchinfo(client.config.admin_id);
         if (infos) {
@@ -13,7 +12,17 @@ module.exports =  async (client) => {
     presence();
     setInterval(presence, 600000);
 
-    let upcheck = await vercheck();
-    if (upcheck) console.log(upcheck);
+
+    let data = await fetch('https://api.github.com/repos/Sparker-99/Admin-bot/releases/latest')
+        .then((res) => res.json())
+        .catch(() => { console.log('\x1b[31mUpdate check failed Github is not reachable\x1b[0m') });
+
+    if (data)
+        if (require('../package.json').version.replace(/[^0-9]/g, '') >= data.tag_name.replace(/[^0-9]/g, ''))
+            console.log('\x1b[32mAdmin Bot is up to date\x1b[0m');
+        else
+            console.log('\x1b[33mAdmin bot version ' + data.tag_name + ' update is avaiable\x1b[0m');
+
+
     console.log('\nBot is online with id ' + client.user.id);
 };

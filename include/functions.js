@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 module.exports = {
-    configcheck(client) {
+    async configcheck(client) {
         if (!client.config.token) {
             console.log('No token detected in config file\nexiting....');
             process.exit();
@@ -13,6 +13,21 @@ module.exports = {
             console.log('No adminid detected in config file\nexiting....');
             process.exit();
         }
+        if (!client.config.webfronturl) {
+            console.log('No webfront url detected in config file\nexiting....');
+            process.exit();
+        }
+        if (!(client.config.results_perpage > 0) || !(client.config.results_perpage < 11)) {
+            console.log('Results per page must be between 1 to 10\nexiting....');
+            process.exit();
+        }
+        if (client.config.ownerid && isNaN(client.config.ownerid)) {
+            console.log('Owner id must be a number\nexiting....');
+            process.exit();
+        }
+        if (client.config.webfronturl.slice(client.config.webfronturl.length - 1) === '/') {
+            client.config.webfronturl = client.config.webfronturl.slice(0, -1);
+        }
         if (!client.config.custom_presence) {
             client.config.custom_presence = client.config.prefix + 'help';
         }
@@ -24,25 +39,12 @@ module.exports = {
         if (client.config.thumbnail_image_url) {
             client.thumbnail = client.config.thumbnail_image_url;
         } else
-            client.thumbnail = 'https://raidmax.org/IW4MAdmin/img/iw4adminicon-3.png';
+            client.thumbnail = 'https://i.ibb.co/V9bmgFg/icon.png';
 
         if (client.config.footer) {
             client.footer = client.config.footer;
         } else
-            client.footer = 'Bot by Sparker, IW4M Admin by Raidmax';
-    },
-
-    async vercheck() {
-        let data = await fetch('https://api.github.com/repos/Sparker-99/Admin-bot/releases/latest')
-            .then((res) => res.json())
-            .catch(() => { console.log('\x1b[31mUpdate check failed Github is not reachable\x1b[0m') });
-
-        if (!data) return false;
-
-        if (require('../package.json').version.replace(/[^0-9]/g, '') >= data.tag_name.replace(/[^0-9]/g, ''))
-            return "\x1b[32mAdmin Bot is up to date\x1b[0m";
-        else
-            return "\x1b[33mAdmin bot version " + data.tag_name + " update is avaiable\x1b[0m";
+            client.footer = 'Admin Bot version ' + require('../package.json').version;
     },
 
     timeformat(uptime) {
@@ -53,28 +55,137 @@ module.exports = {
         return (days > 0 ? days + " days, " : "") + (hours > 0 ? hours + " hours, " : "") + (minutes > 0 ? minutes + " minutes, " : "") + (seconds > 0 ? seconds + " seconds" : "");
     },
 
-    async fetchinfo(id, length) {
+    async fetchinfo(id) {
         let response = await fetch('http://api.raidmax.org:5000/instance/' + id)
             .then((res) => res.json())
-            .catch(() => { console.log('\x1b[31mMasterserver not reachable\x1b[0m') });
+            .catch(() => { console.log('\x1b[31mWarning: Masterserver not reachable\x1b[0m') });
         if (response && response.servers) {
-            let hostnames = new Array();
-            let players = new Array();
-            let maxplayers = new Array();
-            let gamemap = new Array();
-            var total = length || response.servers.length;
+            let hostnames = [];
+            let players = [];
+            let maxplayers = [];
+            let gamemap = [];
+            let gametype = [];
+            let ip = [];
+            let gamever = [];
+            var total = response.servers.length;
             for (i = 0; i < total; i++) {
                 if (response.servers[i]) {
-                    hostnames[i] = '🔹 ' + response.servers[i].hostname.replace(/\^[0-9:;c]/g, '');
+                    hostnames[i] = (i + 1) + '. ' + response.servers[i].hostname.replace(/\^[0-9:;c]/g, '');
                     players[i] = response.servers[i].clientnum;
                     maxplayers[i] = response.servers[i].maxclientnum;
                     gamemap[i] = response.servers[i].map;
+                    gametype[i] = response.servers[i].gametype;
+                    ip[i] = response.servers[i].ip + ':' + response.servers[i].port;
+                    gamever[i] = response.servers[i].version;
                 }
             }
-            return [hostnames, players, maxplayers, gamemap, response.uptime];
+            return [hostnames, players, maxplayers, gamemap, gametype, ip, gamever, response.uptime];
         } else {
             return false;
         }
+    },
+
+    async execute(url, id, cookie, cmd) {
+        let response = await fetch(url + '/api/server/' + id + '/execute', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Cookie': cookie }, body: `{"command":"` + cmd + `"}` })
+            .catch(() => { console.log('\x1b[31mWarning: ' + url + ' not reachable\x1b[0m') });
+
+        if (!response) return [404, 'Not Reachable'];
+        if (response.status === 401) return [401, 'Unauthorized'];
+        if (response.status === 400) return [400, await response.text()];
+
+        let data = await response.json();
+
+        if (data.output.length !== 0) {
+            let answers = [];
+            var total = data.output.length;
+            for (i = 0; i < total; i++) {
+                if (data.output[i]) {
+                    answers[i] = data.output[i];
+                }
+            }
+            return [response.status, data.executionTimeMs, answers];
+        }
+        return [response.status, data.executionTimeMs, 'Command Successfully Executed'];
+    },
+
+    getinfo(gamever, ip, type) {
+        let client = "";
+        let dc = "";
+        switch (gamever) {
+            case "CoD4 X - win_mingw-x86 build 1056 Dec 12 2020":
+                client = "COD 4X";
+                dc = "cod4://" + ip;
+                break;
+            case "IW4x (v0.6.0)":
+                client = "IW4X";
+                dc = "iw4x://" + ip;
+                break;
+            case "IW6 MP 3.15 build 2 Sat Sep 14 2013 03:58:30PM win64":
+                client = "IW6X";
+                dc = "iw6x://" + ip;
+                break;
+            case "IW5 MP 1.9 build 388110 Fri Sep 14 00:04:28 2012 win-x86":
+                client = "Plutonium IW5";
+                dc = "plutonium://play/iw5mp/" + ip;
+                break;
+            case "Call of Duty Multiplayer - Ship COD_T6_S MP build 1.0.44 CL(1759941) CODPCAB2 CEG Fri May 9 19:19:19 2014 win-x86 813e66d5":
+                client = "Plutonium T6";
+                if (type == 'zstandard' || type == 'zclassic')
+                    dc = "plutonium://play/t6zm/" + ip;
+                else
+                    dc = "plutonium://play/t6mp/" + ip;
+                break;
+            case "Call of Duty Multiplayer - Ship COD_T5_S MP build 7.0.189 CL(1022875) CODPCAB-V64 CEG Wed Nov 02 18:02:23 2011 win-x86":
+                client = "Rekt T5M";
+                dc = "t5://" + ip;
+                break;
+            case "Call of Duty Multiplayer COD_WaW MP build 1.7.1263 CL(350073) JADAMS2 Thu Oct 29 15:43:55 2009 win-x86":
+                client = "Plutonium T4";
+                dc = "plutonium://play/t4mp/" + ip;
+                break;
+            case "[local] ship win64 CODBUILD8-764 (3421987) Mon Dec 16 10:44:20 2019 10d27bef":
+                client = "Black Ops 3";
+                dc = "cod://" + ip;
+                break;
+            case "IW5 MP 1.4 build 382 latest Thu Jan 19 2012 11:09:49AM win-x86":
+                client = "Tekno MW3";
+                dc = "cod://" + ip;
+                break;
+            default:
+                client = "Unknown";
+                dc = "cod://" + ip;
+        }
+        return [client, dc];
+    },
+
+    getgame(cname) {
+        let nm = ""
+        switch (cname) {
+            case "IW4":
+                nm = "Modern Warfare 2";
+                break;
+            case "IW5":
+                nm = "Modern Warfare 3";
+                break;
+            case "IW6":
+                nm = "Ghosts";
+                break;
+            case "T4":
+                nm = "World at War";
+                break;
+            case "T5":
+                nm = "Black Ops";
+                break;
+            case "T6":
+                nm = "Black Ops 2";
+                break;
+            case "T7":
+                nm = "Black Ops 3";
+                break;
+            default:
+                nm = cname;
+        }
+        return nm;
     },
 
     getmap(console) {
@@ -494,6 +605,9 @@ module.exports = {
             case "mp_terminal_cls":
                 alias = "Terminal";
                 break;
+            case "mpui_deltacamp":
+                alias = "Training Site: Delta";
+                break;
             case "mp_apartments":
                 alias = "Evac";
                 break;
@@ -754,4 +868,4 @@ module.exports = {
         }
         return alias;
     }
-}
+};
