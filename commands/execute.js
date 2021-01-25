@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
     if (args[0] <= 0 || !(args.length >= 2)) return message.channel.send('Incorrect Usage. Example:```css\n' + client.config.prefix + 'execute <serverid | ip:port | serial no. from status cmd> <!help>```');
 
     let dbresponse = await dbutils.getData(message.author.id);
-    if (!dbresponse) return message.channel.send("You need to login to use this command.\nType`" + client.config.prefix + "login`");
+    if (!dbresponse) return message.channel.send("You need to login to use this command.\nType: `" + client.config.prefix + "login`");
 
     const id = args.shift();
 
@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
             let conf = new MessageEmbed()
                 .setColor(client.color)
                 .setTitle("Confirmation")
-                .setDescription("Do you want to execute this command in " + infos[0][id - 1].replace(/[0-9]+\. /g, '') + "?\n Send ``yes`` to confirm or any other message to cancel.")
+                .setDescription("Do you want to execute this command in " + infos[0][id - 1].replace(/[0-9]+\. /g, '') + "?\n\n Send ``yes`` to confirm or any other message to cancel.")
                 .setFooter("Server Id: " + infos[5][id - 1].replace(/[^0-9]/g, ''))
             let snt = await message.channel.send(conf);
             const ans = await message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 10000, errors: ["time"] })
@@ -43,6 +43,7 @@ exports.run = async (client, message, args) => {
     if (data[0] === 400) return message.channel.send(data[1]);
 
     let outmsg = new MessageEmbed()
+        .setAuthor(message.author.username, message.author.displayAvatarURL({ format: "png" }))
         .setColor(client.color)
         .setDescription(data[2])
         .setFooter('Executed in ' + data[1] + ' ms')

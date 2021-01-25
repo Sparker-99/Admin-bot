@@ -4,7 +4,7 @@ const StringTable = require('string-table')
 exports.run = async (client, message, args) => {
     if (!args || args.length !== 1) return message.channel.send("Usage:```css\n" + client.config.prefix + "find <name | xuid>```");
 
-    let query
+    let query;
     if (isNaN(args[0])) query = "name=" + args[0];
     else query = "xuid=" + args[0];
 

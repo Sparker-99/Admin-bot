@@ -19,7 +19,9 @@ exports.run = async (client, message) => {
     if (!response) return message.author.send("Cannot establish connection to <" + client.config.webfronturl + ">");
     if (!(response.status == 200)) return message.author.send("Incorrect login details provided. Login create cancelled");
 
-    dbutils.insertData(message.author.id, info[0], response.headers.get('set-cookie').split(';')[0]);
+    var value = response.headers.get('set-cookie').split(';').findIndex(element => element.includes(".AspNetCore.Cookies"));
+    dbutils.insertData(message.author.id, info[0], response.headers.get('set-cookie').split(';')[value]);
+
     message.author.send("Success! your login is successfully stored.\nNote: We do not know or store your id and password");
 };
 

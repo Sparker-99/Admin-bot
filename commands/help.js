@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
             message.channel.send("```css\n" + client.config.prefix + "stats <client id from " + client.config.webfronturl + ">\nAlias: none```");
             break;
         case ('login'):
-            message.channel.send("```css\n" + client.config.prefix + "login\nMethod: Your " + client.config.webfronturl + "'s id and password will be asked in DM```");
+            message.channel.send("```css\n" + client.config.prefix + "login\nMethod: Your id and password for " + client.config.webfronturl + " will be asked in DM```");
             break;
         case ('logout'):
             message.channel.send("```css\n" + client.config.prefix + "logout\nAlias: none```");

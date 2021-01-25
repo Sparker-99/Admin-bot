@@ -1,7 +1,7 @@
 <div align="center">
   <br />
   <p>
-    <img src="https://i.ibb.co/yBPmJSh/adminbot.png" width="546" alt="progressbar" />
+    <img src="https://i.ibb.co/yBPmJSh/adminbot.png" width="546" alt="bot" />
   </p>
   <br />
   <p>
@@ -9,19 +9,31 @@
 </p>
 </div>
 
-### Version 3.0.0
+### Version 3.0.1
 
 _______
 
 ### About
 
-**Admin bot** is a discord bot written in [Node.js](https://nodejs.org). It allows you to view relatime game servers info, execute server commands directly from discord (Requires [IW4M Admin](https://raidmax.org/IW4MAdmin) version 2021.1.18.2 or newer), view stats and much more. Command handler and event handler is added so feel free to extend commands and events.
+**Admin bot** is a discord bot written in [Discord.js](https://discord.js.org). It allows you to view relatime game servers info, execute server commands directly from discord, view stats and much more. Command handler and event handler is added so feel free to extend commands and events.
+
+---
+
+### How it works
+<div align="center">
+  <br />
+  <p>
+    <img src="https://i.ibb.co/k48FVdt/diagram.png" width="750" alt="working" />
+  </p>
+</div>
+
+---
 
 ### Download
 
 Latest binary builds are always available at:
 
-* [GitHub](https://github.com/Sparker-99/Admin-bot/releases)
+* [GitHub (Basic)](https://github.com/Sparker-99/Admin-bot/releases)
 
 ---
 
@@ -31,7 +43,8 @@ Latest binary builds are always available at:
 
 #### Prerequisites
 
-* [Node.js 10](https://nodejs.org/en/download) *or newer*  
+* [Node.js 12](https://nodejs.org/en/download) *or newer*
+* [IW4M Admin](https://raidmax.org/IW4MAdmin) version 2021.1.18.2 *or newer*
 
 #### Installation
 
@@ -67,7 +80,7 @@ Create a discord application from [discord developers](https://discordapp.com/de
 * `webfronturl` &mdash; Insert the IW4M Admin webfront url. Example: https://nbsclan.org
 * `admin_id` &mdash; Insert the `Id` from **IW4MAdminSettings.json** like the image below:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://i.ibb.co/t8mGJKt/adminid.jpg)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://i.ibb.co/x6DXVcH/id.jpg)
 
 * `results_perpage` &mdash; Insert a number from **1** upto **10** to set number of results per page of status command
 
@@ -91,7 +104,7 @@ Create a discord application from [discord developers](https://discordapp.com/de
 
 * #### Why not use a proper Sqlite database instead of Json database ?
 
-  + Sqlite Requires [Windows-Build-Tools](https://github.com/felixrieseberg/windows-build-tools) which is a hassle for most windows users. So for Advanced Users [Admin bot with Sqlite](https://github.com/Sparker-99/Admin-bot/wiki/Advanced-users) is available. There is no need for Windows-Build-Tools in case of linux.
+  + Sqlite Requires [Windows-Build-Tools](https://github.com/felixrieseberg/windows-build-tools) which is a hassle for most windows users. So for Advanced Users [Admin bot with Sqlite](https://github.com/Sparker-99/Admin-bot/wiki/Admin-bot-sqlite) is available. There is no need for Windows-Build-Tools in case of linux.
 ___
 
 ### Contributers
@@ -99,3 +112,4 @@ ___
 * [Sparker](https://github.com/Sparker-99)
 * [Martian](https://github.com/saiteja-madha)
 * [Zwambro](https://github.com/Zwambro)
+* [Insanemode](https://github.com/INSANEMODE)

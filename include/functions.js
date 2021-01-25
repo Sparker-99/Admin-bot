@@ -13,8 +13,8 @@ module.exports = {
             console.log('No adminid detected in config file\nexiting....');
             process.exit();
         }
-        if (!client.config.webfronturl) {
-            console.log('No webfront url detected in config file\nexiting....');
+        if (!client.config.webfronturl || !(/(http(s?)):\/\//i.test(client.config.webfronturl))) {
+            console.log('No valid webfront url detected in config file\nexiting....');
             process.exit();
         }
         if (!(client.config.results_perpage > 0) || !(client.config.results_perpage < 11)) {
@@ -105,12 +105,11 @@ module.exports = {
             }
             return [response.status, data.executionTimeMs, answers];
         }
-        return [response.status, data.executionTimeMs, 'Command Successfully Executed'];
+        return [response.status, data.executionTimeMs, 'Command Executed Successfully'];
     },
 
     getinfo(gamever, ip, type) {
-        let client = "";
-        let dc = "";
+        let client, dc;
         switch (gamever) {
             case "CoD4 X - win_mingw-x86 build 1056 Dec 12 2020":
                 client = "COD 4X";
@@ -159,7 +158,7 @@ module.exports = {
     },
 
     getgame(cname) {
-        let nm = ""
+        let nm;
         switch (cname) {
             case "IW4":
                 nm = "Modern Warfare 2";
@@ -189,7 +188,7 @@ module.exports = {
     },
 
     getmap(console) {
-        let alias = "";
+        let alias;
         switch (console) {
             case "mp_railyard":
                 alias = "Railyard";
