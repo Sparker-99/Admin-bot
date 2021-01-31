@@ -20,6 +20,7 @@ exports.run = async (client, message, args) => {
                 .setDescription("Do you want to execute this command in " + infos[0][id - 1].replace(/[0-9]+\. /g, '') + "?\n\n Send ``yes`` to confirm or any other message to cancel.")
                 .setFooter("Server Id: " + infos[5][id - 1].replace(/[^0-9]/g, ''))
             let snt = await message.channel.send(conf);
+
             const ans = await message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 10000, errors: ["time"] })
                 .catch(() => {
                     let timeout = new MessageEmbed()

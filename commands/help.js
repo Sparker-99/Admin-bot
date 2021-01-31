@@ -10,6 +10,9 @@ exports.run = async (client, message, args) => {
         case ('serverinfo'):
             message.channel.send("```css\n" + client.config.prefix + "serverinfo <Serial Number from Status command>\nAlias: " + client.config.prefix + "sinfo```");
             break;
+        case ('players'):
+            message.channel.send("```css\n" + client.config.prefix + "players <Serverid | ip:port | Serial No. from Status command> <page number>\nAlias: " + client.config.prefix + "p, " + client.config.prefix + "scoreboard```");
+            break;
         case ('find'):
             message.channel.send("```css\n" + client.config.prefix + "find <name of the player | xuid of the player>\nAlias: " + client.config.prefix + "f```");
             break;
@@ -36,7 +39,7 @@ exports.run = async (client, message, args) => {
                 .setTitle('Help')
                 .setColor(client.color)
                 .setThumbnail(client.thumbnail)
-                .setDescription("🔸 `" + client.config.prefix + "status` - Shows all iw4m admin server's status\n" + "🔹 `" + client.config.prefix + "serverinfo` - Shows info about given server number\n" + "🔸 `" + client.config.prefix + "find` - Shows name, iw4m client id and xuid of found clients\n" + "🔹 `" + client.config.prefix + "stats` - Shows all stats about the player\n" + "🔸 `" + client.config.prefix + "login` - Asks you for login info in dm\n" + "🔹 `" + client.config.prefix + "logout` - Deletes your login and log you out\n" + "🔸 `" + client.config.prefix + "execute` - Executes the command in the given server\n" + "🔹 `" + client.config.prefix + "botinfo` - Shows bot's overall status\n" + "🔸 `" + client.config.prefix + "ping` - Shows bot's latency to discord\n" + "```Use " + client.config.prefix + "help <command name> or " + client.config.prefix + "h <command name> to get more info about the command```")
+                .setDescription("🔸 `" + client.config.prefix + "status` - Shows all iw4m admin server's status\n" + "🔹 `" + client.config.prefix + "serverinfo` - Shows info about given server number\n" + "🔸 `" + client.config.prefix + "players` - Shows player scoreboard for the given server\n" + "🔹 `" + client.config.prefix + "find` - Shows name, iw4m client id and xuid of found clients\n" + "🔸 `" + client.config.prefix + "stats` - Shows all stats about the player\n" + "🔹 `" + client.config.prefix + "login` - Asks you for login info in dm\n" + "🔸 `" + client.config.prefix + "logout` - Deletes your login and log you out\n" + "🔹 `" + client.config.prefix + "execute` - Executes the command in the given server\n" + "🔹 `" + client.config.prefix + "botinfo` - Shows bot's overall status\n" + "🔸 `" + client.config.prefix + "ping` - Shows bot's latency to discord\n" + "```Use " + client.config.prefix + "help <command name> or " + client.config.prefix + "h <command name> to get more info about the command```")
                 .setFooter(client.footer);
             message.channel.send(emc);
     }

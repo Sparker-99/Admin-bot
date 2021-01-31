@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
+const stringtable = require('string-table');
 const { MessageEmbed } = require('discord.js');
-const StringTable = require('string-table')
 exports.run = async (client, message, args) => {
     if (!args || args.length !== 1) return message.channel.send("Usage:```css\n" + client.config.prefix + "find <name | xuid>```");
 
@@ -17,21 +17,14 @@ exports.run = async (client, message, args) => {
     let data = await response.json();
     if (data.totalFoundClients === 0) return message.channel.send("No players found with provided " + (isNaN(args[0]) ? 'name' : 'xuid'));
 
-    let arr = data.clients.map(obj => {
-        return {
-            Name: obj.name,
-            ClientId: obj.clientId,
-            XUID: obj.xuid
-        }
-    })
-
-    let tableData = StringTable.create(arr);
+    let arr = data.clients.map(obj => { return { Name: obj.name, ClientId: obj.clientId, XUID: obj.xuid } });
+    let tad = stringtable.create(arr);
 
     const fnd = new MessageEmbed()
         .setTitle('Client Search Results')
         .setColor(client.color)
-        .setDescription(`\`\`\`${tableData}\`\`\``)
-        .setFooter(client.footer);
+        .setDescription(`\`\`\`${tad}\`\`\``)
+        .setFooter(client.footer)
     message.channel.send(fnd);
 };
 

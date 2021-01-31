@@ -9,7 +9,7 @@
 </p>
 </div>
 
-### Version 3.0.1
+### Version 3.0.2
 
 _______
 
@@ -90,7 +90,7 @@ Create a discord application from [discord developers](https://discordapp.com/de
   + `{m}` &mdash; max players count
   + `{p}` &mdash; players online count 
   + `{s}` &mdash; total server count
- * `colour` &mdash; You can insert a hex colour code to get that colour for all embed discord messages
+ * `color` &mdash; You can insert a hex colour code to get that colour for all embed discord messages
  * `thumbnail_image_url` &mdash; You can insert an image link to get custom thumbnail for all embed discord messages
  * `footer` &mdash; You can insert a footer message to display as footer for all embed discord messages
  * `ownerid` &mdash; You can insert an administrator's or bot owner's client id to lock botinfo for administrator or bot owner
