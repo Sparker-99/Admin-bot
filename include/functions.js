@@ -31,8 +31,8 @@ module.exports = {
         if (!client.config.custom_presence) {
             client.config.custom_presence = client.config.prefix + 'help';
         }
-        if (client.config.colour) {
-            client.color = '#' + client.config.colour.replace(/#/gi, '');
+        if (client.config.color) {
+            client.color = '#' + client.config.color.replace(/#/gi, '');
         } else
             client.color = '#007acc';
 
@@ -79,7 +79,7 @@ module.exports = {
                     gamever[i] = response.servers[i].version;
                 }
             }
-            return [hostnames, players, maxplayers, gamemap, gametype, ip, gamever, response.uptime];
+            return [hostnames, players, maxplayers, gamemap, gametype, ip, gamever];
         } else {
             return false;
         }
@@ -106,6 +106,23 @@ module.exports = {
             return [response.status, data.executionTimeMs, answers];
         }
         return [response.status, data.executionTimeMs, 'Command Executed Successfully'];
+    },
+
+    async fetchplayers(url, sid) {
+        let response = await fetch(url + '/api/status')
+            .then((res) => res.json())
+            .catch(() => { console.log('\x1b[31mWarning: ' + url + ' not reachable\x1b[0m') });
+
+        if (!response || !response.length) return 404;
+        let server = response.find(({ id }) => id == sid);
+
+        if (!server) return 400;
+        let serverinfo = [server.id, server.name.replace(/\^[0-9:;c]/g, '')];
+
+        if (!server.players.length) return [false, serverinfo];
+        let playerinfo = server.players.map(el => { return [el.level, el.name.replace(/\^[0-9:;c]/g, ''), el.score, el.ping] });
+
+        return [playerinfo, serverinfo];
     },
 
     getinfo(gamever, ip, type) {

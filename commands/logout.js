@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const dbutils = require('../include/dbutils')
+const dbutils = require('../include/dbutils');
 exports.run = async (client, message) => {
     let dbres = await dbutils.getData(message.author.id);
     if (!dbres) return message.channel.send("You are not logged in");

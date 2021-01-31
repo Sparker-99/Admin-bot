@@ -5,9 +5,9 @@ exports.run = async (client, message, args) => {
 
     const response = await fetch(client.config.webfronturl + '/api/stats/' + args[0])
         .then((res) => res.json())
-        .catch(() => { message.channel.send("Cannot establish connection to <" + client.config.webfronturl + ">") });
+        .catch(() => { console.log('\x1b[31mWarning: ' + client.config.webfronturl + ' not reachable\x1b[0m') });
 
-    if (!response) return;
+    if (!response) return message.channel.send("Cannot establish connection to <" + client.config.webfronturl + ">");
     if (!response.length) return message.channel.send("No stats found for client id " + args[0])
 
     let max = response.length;
