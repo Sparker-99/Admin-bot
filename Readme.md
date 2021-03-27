@@ -94,6 +94,8 @@ Create a discord application from [discord developers](https://discordapp.com/de
  * `thumbnail_image_url` &mdash; You can insert an image link to get custom thumbnail for all embed discord messages
  * `footer` &mdash; You can insert a footer message to display as footer for all embed discord messages
  * `ownerid` &mdash; You can insert an administrator's or bot owner's client id to lock botinfo for administrator or bot owner
+ * `status_channel` &mdash; The discord channel ID where the server status must be sent
+ * `status_delay` &mdash; The timeout between sending server status to channel
  ___
 
 ### FAQ
