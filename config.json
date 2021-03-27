@@ -8,5 +8,7 @@
   "color": "",
   "thumbnail_image_url": "",
   "footer": "",
-  "ownerid": ""
+  "ownerid": "",
+  "status_channel": "",
+  "status_delay": 10
 }

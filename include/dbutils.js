@@ -20,5 +20,18 @@ module.exports = {
 
     deleteData: function (userId) {
         db.delete(`/${userId}`)
+    },
+
+    addMessageId: function (serverId, messageId) {
+        db.push(`/cache/${serverId}`, messageId, true)
+    },
+
+    getMessageId: function (serverId) {
+        try {
+            return db.getData(`/cache/${serverId}`)
+        } catch (error) {
+            return null;
+        }
     }
+
 };

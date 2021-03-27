@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const { sendServerStatus } = require('../include/botutils');
 module.exports = async (client) => {
     async function presence() {
         let infos = await client.function.fetchinfo(client.config.admin_id);
@@ -25,4 +26,13 @@ module.exports = async (client) => {
 
 
     console.log('\nBot is online with id ' + client.user.id);
+	
+	// send server status to channel
+    if (client.config.status_channel && client.config.status_delay) {
+		sendServerStatus(client);
+		setInterval(function () {
+			sendServerStatus(client);
+		}, client.config.status_delay * 1000);
+    }
+	
 };
