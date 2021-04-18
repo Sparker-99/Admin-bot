@@ -9,7 +9,7 @@
 </p>
 </div>
 
-### Version 3.0.2
+### Version 3.0.3
 
 _______
 
@@ -43,7 +43,7 @@ Latest binary builds are always available at:
 
 #### Prerequisites
 
-* [Node.js 12](https://nodejs.org/en/download) *or newer*
+* [Node.js 14](https://nodejs.org/en/download) *or newer*
 * [IW4M Admin](https://raidmax.org/IW4MAdmin) version 2021.1.18.2 *or newer*
 
 #### Installation
@@ -73,7 +73,7 @@ ___
 
 #### Initial Configuration
 
-Create a discord application from [discord developers](https://discordapp.com/developers/applications), click on add bot and copy the token if you dont know how read this [Wiki](https://github.com/Sparker-99/Admin-bot/wiki/Creating-and-adding-a-bot)
+Create a discord application from [discord developers](https://discord.com/developers/applications), click on add bot and copy the token if you dont know how read this [Wiki](https://github.com/Sparker-99/Admin-bot/wiki/Creating-and-adding-a-bot)
 
 * `token` &mdash; Insert the bot token
 * `prefix` &mdash; Insert the bot prefix that is used before commands like !help
@@ -82,18 +82,20 @@ Create a discord application from [discord developers](https://discordapp.com/de
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://i.ibb.co/x6DXVcH/id.jpg)
 
-* `results_perpage` &mdash; Insert a number from **1** upto **10** to set number of results per page of status command
+* `results_perpage` &mdash; Insert a number from **1** upto **10** to set number of results per page of status and players command
 
  #### Optional Configuration
 
-* `custom_presence` &mdash; You can set bot's custom presence. Use this following parameters below 
+* `custom_presence` &mdash; You can set bot's custom presence. Use this following parameters below
   + `{m}` &mdash; max players count
-  + `{p}` &mdash; players online count 
+  + `{p}` &mdash; players online count
   + `{s}` &mdash; total server count
+ * `status_channel_id` &mdash; You can insert a discord channel's id to send autostatus on an interval
+ * `statchan_update_interval` &mdash; Specifies how often the bot will update the autostatus in channel in seconds
  * `color` &mdash; You can insert a hex colour code to get that colour for all embed discord messages
  * `thumbnail_image_url` &mdash; You can insert an image link to get custom thumbnail for all embed discord messages
  * `footer` &mdash; You can insert a footer message to display as footer for all embed discord messages
- * `ownerid` &mdash; You can insert an administrator's or bot owner's client id to lock botinfo for administrator or bot owner
+ * `ownerid` &mdash; You can insert an admin's or bot owner's client id to lock botinfo for administrator or bot owner
  ___
 
 ### FAQ

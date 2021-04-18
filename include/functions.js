@@ -31,6 +31,14 @@ module.exports = {
         if (!client.config.custom_presence) {
             client.config.custom_presence = client.config.prefix + 'help';
         }
+        if (client.config.status_channel_id && isNaN(client.config.status_channel_id)) {
+            console.log('Channel id must be a number\nexiting....');
+            process.exit();
+        }
+        if (client.config.statchan_update_interval && (isNaN(client.config.statchan_update_interval) || client.config.statchan_update_interval < 60)) {
+            console.log('Status channel update interval must be at least 60 seconds or more\nexiting....');
+            process.exit();
+        }
         if (client.config.color) {
             client.color = '#' + client.config.color.replace(/#/gi, '');
         } else
@@ -282,6 +290,9 @@ module.exports = {
             case "mp_shrine":
                 alias = "Cliffside";
                 break;
+            case "mp_seelow":
+                alias = "Seelow";
+                break;
             case "mp_courtyard":
                 alias = "Courtyard";
                 break;
@@ -296,6 +307,9 @@ module.exports = {
                 break;
             case "mp_makin":
                 alias = "Makin";
+                break;
+            case "mp_makin_day":
+                alias = "Makin Day";
                 break;
             case "mp_roundhouse":
                 alias = "Roundhouse";
