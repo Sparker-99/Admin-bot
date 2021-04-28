@@ -148,6 +148,10 @@ module.exports = {
                 client = "IW6X";
                 dc = "iw6x://" + ip;
                 break;
+            case "S1 MP 1.22 build 2195988 Wed Apr 18 11:26:14 2018 win64":
+                client = "S1x";
+                dc = "s1x://" + ip;
+                break;
             case "IW5 MP 1.9 build 388110 Fri Sep 14 00:04:28 2012 win-x86":
                 client = "Plutonium IW5";
                 dc = "plutonium://play/iw5mp/" + ip;
@@ -205,6 +209,9 @@ module.exports = {
                 break;
             case "T7":
                 nm = "Black Ops 3";
+                break;
+            case "SHG1":
+                nm = "Advanced Warfare";
                 break;
             default:
                 nm = cname;
@@ -892,6 +899,108 @@ module.exports = {
                 break;
             case "mp_alien_last":
                 alias = "Exodus";
+                break;
+            case "mp_refraction":
+                alias = "Ascend";
+                break;
+            case "mp_lab2":
+                alias = "Bio Lab";
+                break;
+            case "mp_comeback":
+                alias = "Comeback";
+                break;
+            case "mp_laser2":
+                alias = "Defender";
+                break;
+            case "mp_detroit":
+                alias = "Detroit";
+                break;
+            case "mp_greenband":
+                alias = "Greenband";
+                break;
+            case "mp_levity":
+                alias = "Horizon";
+                break;
+            case "mp_instinct":
+                alias = "Instinct";
+                break;
+            case "mp_recovery":
+                alias = "Recovery";
+                break;
+            case "mp_venus":
+                alias = "Retreat";
+                break;
+            case "mp_prison":
+                alias = "Riot";
+                break;
+            case "mp_solar":
+                alias = "Solar";
+                break;
+            case "mp_terrace":
+                alias = "Terrace";
+                break;
+            case "mp_dam":
+                alias = "Atlas Gorge";
+                break;
+            case "mp_spark":
+                alias = "Shop Shop";
+                break;
+            case "mp_climate_3":
+                alias = "Climate";
+                break;
+            case "mp_sector17":
+                alias = "Compound";
+                break;
+            case "mp_lost":
+                alias = "Core";
+                break;
+            case "mp_torqued":
+                alias = "Drift";
+                break;
+            case "mp_fracture":
+                alias = "Fracture";
+                break;
+            case "mp_kremlin":
+                alias = "Kremlin";
+                break;
+            case "mp_lair":
+                alias = "Overload";
+                break;
+            case "mp_bigben2":
+                alias = "Parliament";
+                break;
+            case "mp_perplex_1":
+                alias = "Perplex";
+                break;
+            case "mp_liberty":
+                alias = "Quarantine";
+                break;
+            case "mp_clowntown3":
+                alias = "Sideshow";
+                break;
+            case "mp_blackbox":
+                alias = "Site 244";
+                break;
+            case "mp_highrise2":
+                alias = "Skyrise";
+                break;
+            case "mp_seoul2":
+                alias = "Swarn";
+                break;
+            case "mp_urban":
+                alias = "Urban";
+                break;
+            case "mp_zombie_ark":
+                alias = "Outbreak";
+                break;
+            case "mp_zombie_brg":
+                alias = "Infection";
+                break;
+            case "mp_zombie_h2o":
+                alias = "Carrier";
+                break;
+            case "mp_zombie_lab":
+                alias = "Descent";
                 break;
             default:
                 alias = console;
