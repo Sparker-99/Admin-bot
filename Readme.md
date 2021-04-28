@@ -51,7 +51,8 @@ Latest binary builds are always available at:
 * Windows
   + Install Node.js
   + Extract `Admin-bot.zip`
-  + Edit `config.js` (add your token, prefix, webfronturl and adminid)
+  + Copy `config_default.json` as `config.json`
+  + Edit `config.json` (add your token, prefix, webfronturl and adminid)
   + Open console inside the **admin bot's** directory, type `npm i` and hit enter
   + Run `StartAdminBot.cmd` or `npm start` in command prompt
 
@@ -63,8 +64,9 @@ Latest binary builds are always available at:
   + `git clone https://github.com/Sparker-99/Admin-bot.git`
   + `cd Admin-bot`
   + `npm i`
+  + `cp config_default.json config.json`
   + `nano config.json` (add your token, prefix, webfronturl and adminid)
-  + `sudo chmod +x ./StartAdminBot.sh`
+  + `chmod +x ./StartAdminBot.sh`
   + `./StartAdminBot.sh`
 To host the discordBot on any other Linux distro You have to install nodejs and npm for your distro, then the rest is the same on all other Linux Distro.
 ___
@@ -96,6 +98,14 @@ Create a discord application from [discord developers](https://discord.com/devel
  * `thumbnail_image_url` &mdash; You can insert an image link to get custom thumbnail for all embed discord messages
  * `footer` &mdash; You can insert a footer message to display as footer for all embed discord messages
  * `ownerid` &mdash; You can insert an admin's or bot owner's client id to lock botinfo for administrator or bot owner
+ ___
+
+### Update
+
+Download [latest build](https://github.com/Sparker-99/Admin-bot/releases) and Extract into old version directory.
++ Existing `config.json` and `database` folder will be not overwritten by the update.
+  + NOTE: any update of the `config_default.json` need to be merged manually by the user to the `config.json`.
++ Any edit done on default `commands` files will be lost. Consider backup or rename the file before update.
  ___
 
 ### FAQ
