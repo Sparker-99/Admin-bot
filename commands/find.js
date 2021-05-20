@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
     let data = await response.json();
     if (data.totalFoundClients === 0) return message.channel.send("No players found with provided " + (isNaN(args[0]) ? 'name' : 'xuid'));
 
-    let arr = data.clients.map(obj => { return { Name: obj.name, ClientId: obj.clientId, XUID: obj.xuid } });
+    let arr = data.clients.map(obj => { return { Name: obj.name.replace(/\^[0-9:;c]/g, ''), ClientId: obj.clientId, XUID: obj.xuid } });
     let tad = stringtable.create(arr);
 
     const fnd = new MessageEmbed()

@@ -9,19 +9,20 @@ exports.run = async (client, message, args) => {
 
     if (!sername[inp]) return message.channel.send('```css\nInstance with the provided server number is not found use status to get all avaiable numbers```');
     let data = client.function.getinfo(infos[6][inp], infos[5][inp], infos[4][inp]);
+    let mapdata = client.function.getmap(infos[3][inp], infos[7][inp]);
 
     let msg = new MessageEmbed()
         .setTitle('Serverinfo')
         .setColor(client.color)
-        .setThumbnail(client.thumbnail)
+        .setThumbnail(mapdata[1].replace(/na/g, client.thumbnail))
         .addField('Hostname', sername[inp].replace(/[0-9]+\. /g, '🔹 '), false)
         .addField('Online Players', infos[1][inp], true)
         .addField('Total Players', infos[2][inp], true)
-        .addField('Map', client.function.getmap(infos[3][inp]), false)
+        .addField('Map', mapdata[0], false)
         .addField('Gametype', infos[4][inp], true)
         .addField('Client', data[0], true)
         .addField('\u200b', '[Direct Connect](https://applauncher.herokuapp.com/redirect?url=' + data[1] + ')', false)
-        .setFooter('ID: ' + infos[5][inp].replace(/[^0-9]/g, ''))
+        .setFooter('ID: ' + infos[5][inp].replace(/[^0-9]/g, ''), client.function.getgame(infos[7][inp])[1].replace(/ukn/g, client.thumbnail))
     message.channel.send(msg);
 };
 

@@ -9,6 +9,7 @@ exports.run = async (client, message, args) => {
     let onlineplayers = infos[1];
     let totalplayers = infos[2];
     let mapcode = infos[3];
+    let gamename = infos[7];
     let max = client.config.results_perpage;
     let less = max - 1;
 
@@ -24,7 +25,7 @@ exports.run = async (client, message, args) => {
 
     for (i = (offset - 1); i <= (offset - 1) + less; i++) {
         if (sername[i]) {
-            stat.addField(sername[i], client.function.getmap(mapcode[i]) + ' - ' + onlineplayers[i] + '/' + totalplayers[i], false);
+            stat.addField(sername[i], client.function.getmap(mapcode[i], gamename[i])[0] + ' - ' + onlineplayers[i] + '/' + totalplayers[i], false);
         }
     }
 

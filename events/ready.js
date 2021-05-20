@@ -14,7 +14,7 @@ module.exports = async (client) => {
     }
 
     presence();
-    if (!client.config.custom_presence.endsWith("help")) setInterval(presence, 600000);
+    if (client.config.custom_presence.match(/\{[mps]\}/g)) setInterval(presence, 600000);
 
     let data = await fetch('https://api.github.com/repos/Sparker-99/Admin-bot/releases/latest')
         .then((res) => res.json())
@@ -39,7 +39,7 @@ module.exports = async (client) => {
 
             for (g = 0; g < pages; g++) {
                 if (infos[0][count]) {
-                    embld[i].addField(infos[0][count], client.function.getmap(infos[3][count]) + ' - ' + infos[1][count] + '/' + infos[2][count], false);
+                    embld[i].addField(infos[0][count], client.function.getmap(infos[3][count], infos[7][count])[0] + ' - ' + infos[1][count] + '/' + infos[2][count], false);
                     count++;
                 }
             }

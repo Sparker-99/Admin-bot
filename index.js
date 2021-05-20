@@ -1,6 +1,12 @@
 const fs = require("fs");
 const Discord = require("discord.js");
 const client = new Discord.Client();
+
+if (!fs.existsSync("./config.json")) {
+  console.log("config.json not found");
+  process.exit();
+}
+
 client.config = require("./config.json");
 client.function = require("./include/functions");
 
