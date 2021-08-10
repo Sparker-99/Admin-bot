@@ -25,9 +25,10 @@ exports.run = async (client, message, args) => {
         .setColor(client.color)
         .setDescription(`\`\`\`${tad}\`\`\``)
         .setFooter(client.footer)
-    message.channel.send(fnd);
+    message.channel.send({ embeds: [fnd] });
 };
 
 exports.conf = {
-    aliases: ['f']
+    aliases: ['f'],
+    permissions: ['SEND_MESSAGES', 'EMBED_LINKS']
 };

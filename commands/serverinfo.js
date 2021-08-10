@@ -16,16 +16,15 @@ exports.run = async (client, message, args) => {
         .setColor(client.color)
         .setThumbnail(mapdata[1].replace(/na/g, client.thumbnail))
         .addField('Hostname', sername[inp].replace(/[0-9]+\. /g, '🔹 '), false)
-        .addField('Online Players', infos[1][inp], true)
-        .addField('Total Players', infos[2][inp], true)
+        .addField('Players', infos[1][inp] + '/' + infos[2][inp], true)
+        .addField('Gametype', client.function.getmode(infos[4][inp]).toString(), true)
         .addField('Map', mapdata[0], false)
-        .addField('Gametype', infos[4][inp], true)
-        .addField('Client', data[0], true)
-        .addField('\u200b', '[Direct Connect](https://applauncher.herokuapp.com/redirect?url=' + data[1] + ')', false)
+        .addField('Client', data[0] + ' [[Connect](https://applauncher.herokuapp.com/redirect?url=' + data[1] + ')]', true)
         .setFooter('ID: ' + infos[5][inp].replace(/[^0-9]/g, ''), client.function.getgame(infos[7][inp])[1].replace(/ukn/g, client.thumbnail))
-    message.channel.send(msg);
+    message.channel.send({ embeds: [msg] });
 };
 
 exports.conf = {
-    aliases: ['sinfo']
+    aliases: ['sinfo'],
+    permissions: ['SEND_MESSAGES', 'EMBED_LINKS']
 };

@@ -22,9 +22,10 @@ exports.run = async (client, message, args) => {
             statmsg.addField("⫸ " + (response[i].serverGame.length === 0 ? "Unknown Game" : client.function.getgame(response[i].serverGame)[0]), "🔹 Rank: **#** " + response[i].ranking + "\n🔸 KD: " + ((response[i].kills === 0) && (response[i].deaths === 0) ? 0 : (response[i].kills / response[i].deaths).toFixed(2)) + "\n🔹 Kills: " + response[i].kills + "\n🔸 Deaths: " + response[i].deaths + "\n🔹 Performance: " + response[i].performance + "\n🔸 Time played: " + client.function.timeformat(response[i].totalSecondsPlayed), false);
         }
     }
-    message.channel.send(statmsg);
+    message.channel.send({ embeds: [statmsg] });
 };
 
 exports.conf = {
-    aliases: []
+    aliases: [],
+    permissions: ['SEND_MESSAGES', 'EMBED_LINKS']
 };

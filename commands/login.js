@@ -1,14 +1,14 @@
 const fetch = require('node-fetch');
 const dbutils = require('../include/dbutils');
 exports.run = async (client, message) => {
-    message.channel.send("🔐 You will be asked for id and password for <" + client.config.webfronturl + ">");
-
     let strdmsg = await message.author.send("➤ Please send your id and password in this format : YourId Password\n➤ Example: ```234 supersecretpass```")
-        .catch(() => message.channel.send("📬 Your DM is closed. Kindly make sure your DM is open."));
+        .catch(() => message.reply("📬 Your DM is closed. Kindly make sure your DM is open."));
 
-    if (strdmsg.channel.type != 'dm') return;
+    if (strdmsg.channel.type != 'DM') return;
 
-    const answer = await message.author.dmChannel.awaitMessages(m => m.content.split(' ').length === 2, { max: 1, time: 30000, errors: ["time"] })
+    message.channel.send("🔐 You are asked for id and password for <" + client.config.webfronturl + ">");
+
+    const answer = await message.author.dmChannel.awaitMessages({ filter: m => m.content.split(' ').length === 2, max: 1, time: 30000, errors: ["time"] })
         .catch(() => {
             strdmsg.edit("Timeout! login create cancelled");
         });
@@ -30,5 +30,6 @@ exports.run = async (client, message) => {
 };
 
 exports.conf = {
-    aliases: []
+    aliases: [],
+    permissions: ['SEND_MESSAGES', 'READ_MESSAGE_HISTORY']
 };

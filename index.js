@@ -1,6 +1,6 @@
 const fs = require("fs");
 const Discord = require("discord.js");
-const client = new Discord.Client();
+const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"] });
 
 if (!fs.existsSync("./config.json")) {
   console.log("config.json not found");
@@ -8,7 +8,7 @@ if (!fs.existsSync("./config.json")) {
 }
 
 client.config = require("./config.json");
-client.function = require("./include/functions");
+client.function = require("./include/core.js");
 
 client.function.configcheck(client);
 

@@ -9,7 +9,7 @@ module.exports = async (client) => {
             var totalplayers = infos[1].reduce((a, b) => a + b, 0);
             var maxplayers = infos[2].reduce((a, b) => a + b, 0);
             var servercount = infos[3].length;
-            client.user.setPresence({ activity: { name: client.config.custom_presence.replace(/{m}/g, maxplayers).replace(/{p}/g, totalplayers).replace(/{s}/g, servercount) }, status: 'online' });
+            client.user.setPresence({ activities: [{ name: client.config.custom_presence.replace(/{m}/g, maxplayers).replace(/{p}/g, totalplayers).replace(/{s}/g, servercount) }], status: 'online' });
         }
     }
 
@@ -44,7 +44,7 @@ module.exports = async (client) => {
                 }
             }
             try {
-                dar = await chanfnd.send(embld[i]);
+                dar = await chanfnd.send({ embeds: [embld[i]] });
                 embids[i] = dar.id;
             } catch (err) { }
         }

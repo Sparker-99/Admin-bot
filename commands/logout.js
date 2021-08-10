@@ -15,5 +15,6 @@ exports.run = async (client, message) => {
 };
 
 exports.conf = {
-    aliases: []
+    aliases: [],
+    permissions: ['SEND_MESSAGES']
 };

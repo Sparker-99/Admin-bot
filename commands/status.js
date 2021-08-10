@@ -30,9 +30,10 @@ exports.run = async (client, message, args) => {
     }
 
     stat.setFooter(`Page: ${Math.ceil(offset / max)}/${maxpages}`);
-    message.channel.send(stat);
+    message.channel.send({ embeds: [stat] });
 };
 
 exports.conf = {
-    aliases: ['s']
+    aliases: ['s'],
+    permissions: ['SEND_MESSAGES', 'EMBED_LINKS']
 };

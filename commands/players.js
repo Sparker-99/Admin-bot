@@ -29,7 +29,7 @@ exports.run = async (client, message, args) => {
             .setColor(client.color)
             .setDescription("```" + data[1][1] + " is empty```")
             .setFooter("ID: " + data[1][0])
-        return message.channel.send(empty);
+        return message.channel.send({ embeds: [empty] });
     }
 
     let offset;
@@ -55,9 +55,10 @@ exports.run = async (client, message, args) => {
         .setColor(client.color)
         .setDescription(`\`\`\`${td}\`\`\``)
         .setFooter(`Page: ${Math.ceil(offset / max)}/${maxpages}`)
-    message.channel.send(plst);
+    message.channel.send({ embeds: [plst] });
 }
 
 exports.conf = {
-    aliases: ['p', 'scoreboard']
+    aliases: ['p', 'scoreboard'],
+    permissions: ['SEND_MESSAGES', 'EMBED_LINKS']
 };

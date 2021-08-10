@@ -34,5 +34,4 @@ module.exports = {
             return null;
         }
     }
-
 };

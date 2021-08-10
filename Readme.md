@@ -9,7 +9,7 @@
 </p>
 </div>
 
-### Version 3.0.4
+### Version 3.0.5
 
 _______
 
@@ -23,7 +23,7 @@ ___
 <div align="center">
   <br />
   <p>
-    <img src="https://i.gyazo.com/f0131a10f1db1f473f25f2cc51f9a4db.png" width="750" alt="working" />
+    <img src="https://i.gyazo.com/3ac3bcc1fb16eade8d51cef0887448a2.png" width="750" alt="working" />
   </p>
 </div>
 
@@ -43,8 +43,8 @@ ___
 
 #### Prerequisites
 
-* [Node.js 14](https://nodejs.org/en/download) *or newer*
-* [IW4M Admin](https://raidmax.org/IW4MAdmin) version 2021.1.18.2 *or newer*
+* [Node.js 16](https://nodejs.org/en/download) *or newer*
+* [IW4M Admin](https://raidmax.org/IW4MAdmin) version 2021.07.12.1 *or newer*
 
 #### Installation
 
@@ -71,13 +71,14 @@ ___
 To host the discordBot on any other Linux distro You have to install nodejs and npm for your distro, then the rest is the same on all other Linux Distro.
 ___
 
-### Update
+### Updating to new version
 
 Download [latest build](https://github.com/Sparker-99/Admin-bot/releases) and Extract into old version directory.
 + Existing `config.json` and `database` folder will be not overwritten by the update.
   + NOTE: any update of the `config_default.json` need to be merged manually by the user to the `config.json`.
 + Any edit done on default `commands` files will be lost. Consider backup or rename the file before update.
- ___
++ Admin bot v3.0.5 or higher uses `Node 16` which kills any application with critical exceptions. So its recommended to use any program that restarts the bot.
+___
 
 ### Configuration
 
@@ -113,6 +114,10 @@ Create a discord application from [discord developers](https://discord.com/devel
 * #### Does Admin bot stores my ID and Password for Webfront ?
 
   + **No**, Admin bot retrieves **cookies** 🍪 from webfront which is saved and used for executing commands from Discord. Cookies are valid for 30 days or until host machine restart. You can successfully delete id and password in dm after login success message.
+
+* #### Why does the connect in serverinfo command not working ?
+
+  + Not all clients support **direct connect**. Even it supports I dont know its launch url. If you know the launch url for **direct connect** for any client contact me on [Discord](https://discord.gg/tGkbpCD)
 
 * #### Why not use a proper Sqlite database instead of Json database ?
 

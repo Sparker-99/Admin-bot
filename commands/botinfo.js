@@ -27,9 +27,9 @@ exports.run = async (client, message) => {
             .setColor(client.color)
             .setThumbnail(client.thumbnail)
             .addField("Bot's memory usage [" + ((process.memoryUsage().heapUsed / os.totalmem()) * 100).toFixed(2) + "%]", (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2) + " MB / " + (((os.totalmem() / 1024) / 1024) / 1024).toFixed(2) + " GB", true)
-            .addField("Overall Cpu usage [" + percentagecpu + "%]", (process.cpuUsage().user / 1024 / 1024).toFixed(2) + " MB | " + os.cpus().length + (os.cpus().length === 1 ? " Core" : " Cores"), true)
+            .addField("Cpu usage [" + percentagecpu + "%]", (process.cpuUsage().user / 1024 / 1024).toFixed(2) + " MB | " + os.cpus().length + (os.cpus().length === 1 ? " Core" : " Cores"), true)
             .addField("\u200b", "\u200b", true)
-            .addField("Overall memory usage [" + Math.floor(((os.totalmem() - os.freemem()) / os.totalmem()) * 100) + "%]", ((((os.totalmem() - os.freemem()) / 1024) / 1024) / 1024).toFixed(2) + " GB / " + (((os.totalmem() / 1024) / 1024) / 1024).toFixed(2) + " GB", true)
+            .addField("Mem usage [" + Math.floor(((os.totalmem() - os.freemem()) / os.totalmem()) * 100) + "%]", ((((os.totalmem() - os.freemem()) / 1024) / 1024) / 1024).toFixed(2) + " GB / " + (((os.totalmem() / 1024) / 1024) / 1024).toFixed(2) + " GB", true)
             .addField("Node Js version", process.versions.node, true)
             .addField("\u200b", "\u200b", true)
             .addField("Platform", process.platform.replace(/win32/g, "Windows"), true)
@@ -37,7 +37,7 @@ exports.run = async (client, message) => {
             .addField("\u200b", "\u200b", true)
             .addField("Bot's Uptime", client.function.timeformat(client.uptime / 1000), false)
             .setFooter(client.footer)
-        message.channel.send(emb);
+        message.channel.send({ embeds: [emb] });
     }
 
     if (client.config.ownerid)
@@ -47,5 +47,6 @@ exports.run = async (client, message) => {
 };
 
 exports.conf = {
-    aliases: ['binfo']
+    aliases: ['binfo'],
+    permissions: ['SEND_MESSAGES', 'EMBED_LINKS']
 };

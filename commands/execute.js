@@ -19,14 +19,14 @@ exports.run = async (client, message, args) => {
                 .setTitle("Confirmation")
                 .setDescription("Do you want to execute this command in " + infos[0][id - 1].replace(/[0-9]+\. /g, '') + "?\n\n Send ``yes`` to confirm or any other message to cancel.")
                 .setFooter("Server Id: " + infos[5][id - 1].replace(/[^0-9]/g, ''))
-            let snt = await message.channel.send(conf);
+            let snt = await message.channel.send({ embeds: [conf] });
 
-            const ans = await message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 10000, errors: ["time"] })
+            const ans = await message.channel.awaitMessages({ filter: m => m.author.id === message.author.id, max: 1, time: 10000, errors: ["time"] })
                 .catch(() => {
                     let timeout = new MessageEmbed()
                         .setAuthor("Timeout, command execution has been cancelled")
                         .setColor(client.color)
-                    snt.edit(timeout);
+                    snt.edit({ embeds: [timeout] });
                 });
             if (!ans) return;
             if (!(ans.first().content.toLowerCase() == 'yes')) return message.channel.send("Execution Cancelled");
@@ -46,11 +46,12 @@ exports.run = async (client, message, args) => {
     let outmsg = new MessageEmbed()
         .setAuthor(message.author.username, message.author.displayAvatarURL({ format: "png" }))
         .setColor(client.color)
-        .setDescription(data[2])
+        .setDescription(data[2].toString())
         .setFooter('Executed in ' + data[1] + ' ms')
-    message.channel.send(outmsg);
+    message.channel.send({ embeds: [outmsg] });
 };
 
 exports.conf = {
-    aliases: ['e']
+    aliases: ['e'],
+    permissions: ['SEND_MESSAGES', 'EMBED_LINKS']
 };

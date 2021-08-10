@@ -39,12 +39,13 @@ exports.run = async (client, message, args) => {
                 .setTitle('Help')
                 .setColor(client.color)
                 .setThumbnail(client.thumbnail)
-                .setDescription("🔸 `" + client.config.prefix + "status` - Shows all iw4m admin server's status\n" + "🔹 `" + client.config.prefix + "serverinfo` - Shows info about given server number\n" + "🔸 `" + client.config.prefix + "players` - Shows player scoreboard for the given server\n" + "🔹 `" + client.config.prefix + "find` - Shows name, iw4m client id and xuid of found clients\n" + "🔸 `" + client.config.prefix + "stats` - Shows all stats about the player\n" + "🔹 `" + client.config.prefix + "login` - Asks you for login info in dm\n" + "🔸 `" + client.config.prefix + "logout` - Deletes your login and log you out\n" + "🔹 `" + client.config.prefix + "execute` - Executes the command in the given server\n" + "🔹 `" + client.config.prefix + "botinfo` - Shows bot's overall status\n" + "🔸 `" + client.config.prefix + "ping` - Shows bot's latency to discord\n" + "```Use " + client.config.prefix + "help <command name> or " + client.config.prefix + "h <command name> to get more info about the command```")
+                .setDescription("🔸 `" + client.config.prefix + "status` - Shows all iw4m admin server's status\n" + "🔹 `" + client.config.prefix + "serverinfo` - Shows info about given server number\n" + "🔸 `" + client.config.prefix + "players` - Shows player scoreboard for the given server\n" + "🔹 `" + client.config.prefix + "find` - Shows name, iw4m client id and xuid of found clients\n" + "🔸 `" + client.config.prefix + "stats` - Shows all stats about the player\n" + "🔹 `" + client.config.prefix + "login` - Asks you for login info in dm\n" + "🔸 `" + client.config.prefix + "logout` - Deletes your login and logs you out\n" + "🔹 `" + client.config.prefix + "execute` - Executes the command in the given server\n" + "🔹 `" + client.config.prefix + "botinfo` - Shows bot's overall status\n" + "🔸 `" + client.config.prefix + "ping` - Shows bot's latency to discord\n" + "```Use " + client.config.prefix + "help <command name> or " + client.config.prefix + "h <command name> to get more info about the command```")
                 .setFooter(client.footer);
-            message.channel.send(emc);
+            message.channel.send({ embeds: [emc] });
     }
 };
 
 exports.conf = {
-    aliases: ['h']
+    aliases: ['h'],
+    permissions: ['SEND_MESSAGES', 'EMBED_LINKS']
 };
