@@ -9,7 +9,7 @@
 </p>
 </div>
 
-### Version 3.0.5
+### Version 3.0.6
 
 _______
 
@@ -44,14 +44,14 @@ ___
 #### Prerequisites
 
 * [Node.js 16](https://nodejs.org/en/download) *or newer*
-* [IW4M Admin](https://raidmax.org/IW4MAdmin) version 2021.07.12.1 *or newer*
+* [IW4M Admin](https://raidmax.org/IW4MAdmin) version 2021.10.31.1 *or newer*
 
 #### Installation
 
 * Windows
   + Install Node.js
   + Extract `Admin-bot.zip`
-  + Copy `config_default.json` as `config.json`
+  + Rename `config_default.json` as `config.json`
   + Edit `config.json` (add your token, prefix, webfronturl and adminid)
   + Open console inside the **admin bot's** directory, type `npm i` and hit enter
   + Run `StartAdminBot.cmd` or `npm start` in command prompt
@@ -121,7 +121,7 @@ Create a discord application from [discord developers](https://discord.com/devel
 
 * #### Why not use a proper Sqlite database instead of Json database ?
 
-  + Sqlite Requires [Windows-Build-Tools](https://github.com/felixrieseberg/windows-build-tools) which is a hassle for most windows users. So for Advanced Users [Admin bot with Sqlite](https://github.com/Sparker-99/Admin-bot/tree/sqlite3) is available. There is no need for Windows-Build-Tools in case of linux.
+  + Sqlite Requires [Node-Gyp](https://github.com/nodejs/node-gyp) which is a hassle for most windows users. So for Advanced Users [Admin bot with Sqlite](https://github.com/Sparker-99/Admin-bot/tree/sqlite3) is available. There is no need for this tool in case of linux.
 ___
 
 ### Contributers

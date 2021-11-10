@@ -9,16 +9,25 @@ exports.run = async (client, message, args) => {
 
     const id = args[0];
 
-    if (id.length > 10 && id.length < 20) {
-        var serverid = id.replace(/[^0-9]/g, '');
-    } else {
+    if (/[0-9]+.[0-9]+.[0-9]+.[0-9]+:[0-9]{1,5}$/.test(id) || id < 100) {
+
         let infos = await client.function.fetchinfo(client.config.admin_id);
-        if (infos[5].length >= id) {
-            var serverid = infos[5][id - 1].replace(/[^0-9]/g, '');
-        } else {
-            return message.channel.send('```css\nServer with provided id not found```');
-        }
-    }
+        if (!infos) return;
+        let indx;
+
+        if (id.includes(":")) {
+
+            indx = infos[6].findIndex((element) => element == id);
+            if (indx === -1) indx = infos[5].findIndex((element) => element == id.replace(/[^0-9]/g, ''));
+            if (indx === -1) return message.channel.send('```css\nServer with provided ip not found```');
+
+        } else if (infos[5].length >= id) indx = id - 1;
+        else return message.channel.send('```css\nServer with provided id not found```');
+
+        var serverid = infos[5][indx];
+
+    } else if ((id.length > 9 && id.length < 22) && !/[^\w\s]/g.test(id)) var serverid = id;
+    else return message.channel.send('```css\nServer with provided id not found```');
 
     let data = await client.function.fetchplayers(client.config.webfronturl, serverid);
     if (data === 400) return message.channel.send("Server with provided id not found");

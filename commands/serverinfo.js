@@ -8,8 +8,8 @@ exports.run = async (client, message, args) => {
     let inp = args[0] - 1;
 
     if (!sername[inp]) return message.channel.send('```css\nInstance with the provided server number is not found use status to get all avaiable numbers```');
-    let data = client.function.getinfo(infos[6][inp], infos[5][inp], infos[4][inp]);
-    let mapdata = client.function.getmap(infos[3][inp], infos[7][inp]);
+    let data = client.function.getinfo(infos[7][inp], infos[6][inp], infos[4][inp]);
+    let mapdata = client.function.getmap(infos[3][inp], infos[8][inp]);
 
     let msg = new MessageEmbed()
         .setTitle('Serverinfo')
@@ -20,7 +20,7 @@ exports.run = async (client, message, args) => {
         .addField('Gametype', client.function.getmode(infos[4][inp]).toString(), true)
         .addField('Map', mapdata[0], false)
         .addField('Client', data[0] + ' [[Connect](https://applauncher.herokuapp.com/redirect?url=' + data[1] + ')]', true)
-        .setFooter('ID: ' + infos[5][inp].replace(/[^0-9]/g, ''), client.function.getgame(infos[7][inp])[1].replace(/ukn/g, client.thumbnail))
+        .setFooter('ID: ' + infos[5][inp], client.function.getgame(infos[8][inp])[1].replace(/ukn/g, client.thumbnail))
     message.channel.send({ embeds: [msg] });
 };
 

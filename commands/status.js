@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
     let onlineplayers = infos[1];
     let totalplayers = infos[2];
     let mapcode = infos[3];
-    let gamename = infos[7];
+    let gamename = infos[8];
     let max = client.config.results_perpage;
     let less = max - 1;
 

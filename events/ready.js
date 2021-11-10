@@ -39,14 +39,14 @@ module.exports = async (client) => {
 
             for (g = 0; g < pages; g++) {
                 if (infos[0][count]) {
-                    embld[i].addField(infos[0][count], client.function.getmap(infos[3][count], infos[7][count])[0] + ' - ' + infos[1][count] + '/' + infos[2][count], false);
+                    embld[i].addField(infos[0][count], client.function.getmap(infos[3][count], infos[8][count])[0] + ' - ' + infos[1][count] + '/' + infos[2][count], false);
                     count++;
                 }
             }
             try {
                 dar = await chanfnd.send({ embeds: [embld[i]] });
-                embids[i] = dar.id;
-            } catch (err) { }
+                embids.push(dar.id);
+            } catch {}
         }
         return embids;
     }
