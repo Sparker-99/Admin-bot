@@ -7,37 +7,46 @@ exports.run = async (client, message, args) => {
         if (isNaN(args[1]) || args[1] <= 0) return message.channel.send('Incorrect Usage. Example:```css\n' + client.config.prefix + 'players <serverid | ip:port | serial no. from status cmd> <page no.>```');
     }
 
+    let indx;
     const id = args[0];
+    let infos = await client.function.fetchinfo(client.config.webfronturl);
 
-    if (/[0-9]+.[0-9]+.[0-9]+.[0-9]+:[0-9]{1,5}$/.test(id) || id < 100) {
+    if (/[0-9]+.[0-9]+.[0-9]+.[0-9]+:[0-9]{1,5}$/.test(id)) {
 
-        let infos = await client.function.fetchinfo(client.config.admin_id);
-        if (!infos) return;
-        let indx;
+        indx = infos.servip.findIndex((elm) => elm === id);
 
-        if (id.includes(":")) {
+        if (indx === -1) {
+            let myip = await client.function.getexip(client);
+            if (!myip) return message.channel.send('```css\nExternal ip fetcher is down kindly use server number, server id or internal ip```');
 
-            indx = infos[6].findIndex((element) => element == id);
-            if (indx === -1) indx = infos[5].findIndex((element) => element == id.replace(/[^0-9]/g, ''));
-            if (indx === -1) return message.channel.send('```css\nServer with provided ip not found```');
+            let exip = await infos.servip.map(el => {
+                if (/(^127\.)|(^192\.168\.)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^::1$)|(^[fF][cCdD])/.test(el)) return myip + ':' + el.split(":")[1];
+                else return el;
+            });
 
-        } else if (infos[5].length >= id) indx = id - 1;
-        else return message.channel.send('```css\nServer with provided id not found```');
+            indx = exip.findIndex((elem) => elem === id);
+        }
 
-        var serverid = infos[5][indx];
+        if (indx === -1) return message.channel.send('```css\nServer with provided ip not found```');
 
-    } else if ((id.length > 9 && id.length < 22) && !/[^\w\s]/g.test(id)) var serverid = id;
-    else return message.channel.send('```css\nServer with provided id not found```');
+    } else if ((id.length > 9 && id.length < 22) && !/[^\w\s]/g.test(id)) {
 
-    let data = await client.function.fetchplayers(client.config.webfronturl, serverid);
+        indx = infos.servip.findIndex((elm) => elm.replace(/[^0-9]/g, '') === id);
+        if (indx === -1) return message.channel.send('```css\nServer with provided id not found```');
+
+    } else if (infos.hostnames.length >= id) indx = id - 1;
+
+    else return message.channel.send('```css\nNo such servers found```');
+
+    let data = await client.function.fetchplayers(client.config.webfronturl, infos.servip[indx].replace(/[^0-9]/g, ''));
     if (data === 400) return message.channel.send("Server with provided id not found");
     if (data === 404) return message.channel.send("Cannot establish connection to <" + client.config.webfronturl + ">");
 
-    if (!data[0]) {
+    if (!data.playerinfo) {
         const empty = new MessageEmbed()
             .setColor(client.color)
-            .setDescription("```" + data[1][1] + " is empty```")
-            .setFooter("ID: " + data[1][0])
+            .setDescription("```" + data.serverinfo[1] + " is empty```")
+            .setFooter({ text: "ID: " + data.serverinfo[0] })
         return message.channel.send({ embeds: [empty] });
     }
 
@@ -47,23 +56,23 @@ exports.run = async (client, message, args) => {
     let less = max - 1;
 
     pgno = Math.ceil(args[1]);
-    const maxpages = Math.ceil((data[0].length / max));
+    const maxpages = Math.ceil((data.playerinfo.length / max));
     if (pgno > maxpages) { pgno = pgno - (pgno - maxpages) }
     if (!pgno || pgno <= 1) { offset = 1 } else { offset = pgno * max - less }
 
     for (i = (offset - 1); i <= (offset - 1) + less; i++) {
-        if (data[0][i]) {
-            players.push({ No: i + 1, Name: "[" + data[0][i][0] + "] " + data[0][i][1], Score: data[0][i][2], Ping: data[0][i][3] });
+        if (data.playerinfo[i]) {
+            players.push({ No: i + 1, Name: "[" + data.playerinfo[i][0] + "] " + data.playerinfo[i][1], Score: data.playerinfo[i][2], Ping: data.playerinfo[i][3] });
         }
     }
 
     let td = stringtable.create(players);
 
     const plst = new MessageEmbed()
-        .setTitle(data[1][1])
+        .setTitle(data.serverinfo[1])
         .setColor(client.color)
         .setDescription(`\`\`\`${td}\`\`\``)
-        .setFooter(`Page: ${Math.ceil(offset / max)}/${maxpages}`)
+        .setFooter({ text: `Page: ${Math.ceil(offset / max)}/${maxpages}` })
     message.channel.send({ embeds: [plst] });
 }
 

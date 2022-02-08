@@ -9,10 +9,6 @@ module.exports = {
             console.log('No prefix detected in config file\nexiting....');
             process.exit();
         }
-        if (!client.config.admin_id) {
-            console.log('No adminid detected in config file\nexiting....');
-            process.exit();
-        }
         if (!client.config.webfronturl || !(/(http(s?)):\/\//i.test(client.config.webfronturl))) {
             console.log('No valid webfront url detected in config file\nexiting....');
             process.exit();
@@ -63,38 +59,46 @@ module.exports = {
         return (days > 0 ? days + " days, " : "") + (hours > 0 ? hours + " hours, " : "") + (minutes > 0 ? minutes + " minutes, " : "") + (seconds > 0 ? seconds + " seconds" : "");
     },
 
-    async fetchinfo(id) {
-        let response = await fetch('http://api.raidmax.org:5000/instance/' + id)
+    async getexip(client) {
+        if (client.ip) return client.ip;
+        else {
+            let rp = await fetch('https://api.ipify.org').then((res) => res.text()).catch(() => { });
+            if (!rp) return false;
+            client.ip = rp;
+            setTimeout(() => { delete client.ip; }, 43200000);
+            return client.ip;
+        }
+    },
+
+    async fetchinfo(url) {
+        let response = await fetch(url + '/api/server')
             .then((res) => res.json())
-            .catch(() => { console.log('\x1b[31mWarning: Masterserver not reachable\x1b[0m') });
-        if (response && response.servers) {
+            .catch(() => { console.log('\x1b[31mWarning: Webfront not reachable\x1b[0m') });
+        if (response && response.length) {
             let hostnames = [];
             let players = [];
             let maxplayers = [];
             let gamemap = [];
             let gametype = [];
-            let serid = [];
-            let serip = [];
+            let servip = [];
             let gameparser = [];
             let gamename = [];
-            var total = response.servers.length;
+            var total = response.length;
             for (i = 0; i < total; i++) {
-                if (response.servers[i]) {
-                    hostnames[i] = (i + 1) + '. ' + response.servers[i].hostname.replace(/\^[0-9:;c]/g, '');
-                    players[i] = response.servers[i].clientnum;
-                    maxplayers[i] = response.servers[i].maxclientnum;
-                    gamemap[i] = response.servers[i].map;
-                    gametype[i] = response.servers[i].gametype;
-                    serid[i] = response.servers[i].id;
-                    serip[i] = response.servers[i].ip + ':' + response.servers[i].port;
-                    gameparser[i] = response.servers[i].version;
-                    gamename[i] = response.servers[i].game
+                if (response[i]) {
+                    hostnames[i] = (i + 1) + '. ' + response[i].hostname.replace(/\^[0-9:;c]/g, '');
+                    players[i] = response[i].clientNum;
+                    maxplayers[i] = response[i].maxClients;
+                    gamemap[i] = response[i].currentMap.name;
+                    gametype[i] = response[i].currentGameType.type;
+                    servip[i] = response[i].ip + ':' + response[i].port;
+                    gameparser[i] = response[i].parser;
+                    gamename[i] = response[i].game
                 }
             }
-            return [hostnames, players, maxplayers, gamemap, gametype, serid, serip, gameparser, gamename];
-        } else {
-            return false;
-        }
+            return { hostnames, players, maxplayers, gamemap, gametype, servip, gameparser, gamename };
+
+        } else return false;
     },
 
     async execute(url, id, cookie, cmd) {
@@ -131,61 +135,69 @@ module.exports = {
         if (!server) return 400;
         let serverinfo = [server.id, server.name.replace(/\^[0-9:;c]/g, '')];
 
-        if (!server.players.length) return [false, serverinfo];
+        if (!server.players.length) return { playerinfo: false, serverinfo };
         let playerinfo = server.players.map(el => { return [el.level.replace(/Creator/g, "Lord").replace(/SeniorAdmin/g, "S.Admin").replace(/Administrator/g, "Admin").replace(/Moderator/g, "Mod").replace(/Trusted/g, "Trust").replace(/Flagged/g, "Flag"), (el.name.replace(/\^[0-9:;c]/g, '').length > 13) ? el.name.replace(/\^[0-9:;c]/g, '').slice(0, 13) + '..' : el.name.replace(/\^[0-9:;c]/g, ''), el.score, el.ping] });
 
-        return [playerinfo, serverinfo];
+        return { playerinfo, serverinfo };
     },
 
     getinfo(gamever, ip, type) {
         let gameclient, dc;
         switch (gamever) {
-            case "CoD4 X - win_mingw-x86 build 1056 Dec 12 2020":
+            case "CoD4x Parser":
                 gameclient = "COD 4X";
                 dc = "cod4://" + ip;
                 break;
-            case "Plutonium T4":
-                gameclient = "Plutonium T4";
+            case "Plutonium T4 MP Parser":
+                gameclient = "Plutonium T4 Multiplayer";
                 dc = "plutonium://play/t4mp/" + ip;
                 break;
-            case "IW4x (v0.6.0)":
+            case "Plutonium T4 CO-OP/Zombies Parser":
+                gameclient = "Plutonium T4 CO-OP/Zombies";
+                dc = "plutonium://play/t4zm/" + ip;
+                break;
+            case "Call of Duty 5: World at War Parser":
+                gameclient = "Call of Duty: World at War";
+                dc = "cod://" + ip;
+                break;
+            case "IW4x Parser":
                 gameclient = "IW4X";
                 dc = "iw4x://" + ip;
                 break;
-            case "Call of Duty Multiplayer - Ship COD_T5_S MP build 7.0.189 CL(1022875) CODPCAB-V64 CEG Wed Nov 02 18:02:23 2011 win-x86":
+            case "RektT5m Parser":
                 gameclient = "Rekt T5M";
                 dc = "t5://" + ip;
                 break;
-            case "IW5 MP 1.4 build 382 latest Thu Jan 19 2012 11:09:49AM win-x86":
+            case "Tekno MW3 Parser":
                 gameclient = "Tekno MW3";
                 dc = "cod://" + ip;
                 break;
-            case "IW5 MP 1.9 build 388110 Fri Sep 14 00:04:28 2012 win-x86":
+            case "Plutonium IW5 Parser":
                 gameclient = "Plutonium IW5";
                 dc = "plutonium://play/iw5mp/" + ip;
                 break;
-            case "Call of Duty Multiplayer - Ship COD_T6_S MP build 1.0.44 CL(1759941) CODPCAB2 CEG Fri May 9 19:19:19 2014 win-x86 813e66d5":
+            case "Plutonium T6 Parser":
                 gameclient = "Plutonium T6";
                 if (type !== 'zstandard' && type !== 'zclassic' && type !== 'zgrief') dc = "plutonium://play/t6mp/" + ip;
                 else dc = "plutonium://play/t6zm/" + ip;
                 break;
-            case "IW6 MP 3.15 build 2 Sat Sep 14 2013 03:58:30PM win64":
+            case "IW6x Parser":
                 gameclient = "IW6X";
                 dc = "iw6x://" + ip;
                 break;
-            case "S1 MP 1.22 build 2195988 Wed Apr 18 11:26:14 2018 win64":
+            case "S1x Parser":
                 gameclient = "S1X";
                 dc = "s1x://" + ip;
                 break;
-            case "[local] ship win64 CODBUILD8-764 (3421987) Mon Dec 16 10:44:20 2019 10d27bef":
+            case "Black Ops 3 Parser":
                 gameclient = "Black Ops 3";
                 dc = "cod://" + ip;
                 break;
-            case "CSGO":
+            case "CS:GO Parser":
                 gameclient = "CS:GO";
                 dc = "steam://connect/" + ip;
                 break;
-            case "CSGOSM":
+            case "CS:GO (SourceMod) Parser":
                 gameclient = "CS:GO";
                 dc = "steam://connect/" + ip;
                 break;

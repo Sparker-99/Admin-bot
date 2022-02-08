@@ -1,15 +1,25 @@
 const fetch = require('node-fetch');
-const dbutils = require('../include/dbutils');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = async (client) => {
+    let sql = client.db;
+    const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'userinfo';").get();
+
+    if (!table['count(*)']) {
+        sql.prepare("CREATE TABLE IF NOT EXISTS userinfo (id INTEGER, client_id INTEGER, cookie VARCHAR);").run();
+        sql.prepare("CREATE TABLE IF NOT EXISTS chanmsgs (chid INTEGER, msgids VARCHAR);").run();
+        sql.prepare("CREATE UNIQUE INDEX user_id ON userinfo (id);").run();
+        sql.pragma("synchronous = 1");
+        sql.pragma("journal_mode = wal");
+    }
+
     async function presence() {
-        let infos = await client.function.fetchinfo(client.config.admin_id);
+        let infos = await client.function.fetchinfo(client.config.webfronturl);
         if (infos) {
-            var totalplayers = infos[1].reduce((a, b) => a + b, 0);
-            var maxplayers = infos[2].reduce((a, b) => a + b, 0);
-            var servercount = infos[3].length;
-            client.user.setPresence({ activities: [{ name: client.config.custom_presence.replace(/{m}/g, maxplayers).replace(/{p}/g, totalplayers).replace(/{s}/g, servercount) }], status: 'online' });
+            var currplayers = infos.players.reduce((a, b) => a + b, 0);
+            var maxplayers = infos.maxplayers.reduce((a, b) => a + b, 0);
+            var servercount = infos.gamemap.length;
+            client.user.setPresence({ activities: [{ name: client.config.custom_presence.replace(/{m}/g, maxplayers).replace(/{p}/g, currplayers).replace(/{s}/g, servercount) }], status: 'online' });
         }
     }
 
@@ -31,22 +41,22 @@ module.exports = async (client) => {
         let embld = [];
         let embids = [];
         let count = 0;
-        let embsl = Math.ceil(infos[2].length / pages);
+        let embsl = Math.ceil(infos.hostnames.length / pages);
 
         for (i = 0; i < embsl; i++) {
             embld[i] = new MessageEmbed().setColor(client.color);
             if (i == 0) embld[i].setTitle('Server Status').setThumbnail(client.thumbnail);
 
             for (g = 0; g < pages; g++) {
-                if (infos[0][count]) {
-                    embld[i].addField(infos[0][count], client.function.getmap(infos[3][count], infos[8][count])[0] + ' - ' + infos[1][count] + '/' + infos[2][count], false);
+                if (infos.hostnames[count]) {
+                    embld[i].addField(infos.hostnames[count], client.function.getmap(infos.gamemap[count], infos.gamename[count])[0] + ' - ' + infos.players[count] + '/' + infos.maxplayers[count], false);
                     count++;
                 }
             }
             try {
                 dar = await chanfnd.send({ embeds: [embld[i]] });
                 embids.push(dar.id);
-            } catch {}
+            } catch { }
         }
         return embids;
     }
@@ -65,12 +75,14 @@ module.exports = async (client) => {
                 return clearInterval(init);
             }
 
-            let srdata = await client.function.fetchinfo(client.config.admin_id);
+            let srdata = await client.function.fetchinfo(client.config.webfronturl);
             if (!srdata) return;
 
-            let fetchids = await dbutils.fetchData(statchan.id);
+            let fetchids = await client.db.prepare("SELECT * FROM chanmsgs WHERE chid = @chid;").get({ chid: statchan.id });
             let msgids = await processids(srdata, client.config.results_perpage, statchan);
-            dbutils.appendData(statchan.id, msgids.join());
+
+            if (fetchids) client.db.prepare("UPDATE chanmsgs SET msgids = @msgids WHERE chid = @chid;").run({ chid: statchan.id, msgids: msgids.join() });
+            else client.db.prepare("INSERT INTO chanmsgs (chid, msgids) VALUES (@chid, @msgids);").run({ chid: statchan.id, msgids: msgids.join() });
 
             if (fetchids) {
                 let rearr = fetchids.msgids.split(',');

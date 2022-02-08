@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-const dbutils = require('../include/dbutils');
 exports.run = async (client, message) => {
     let strdmsg = await message.author.send("➤ Please send your id and password in this format : YourId Password\n➤ Example: ```234 supersecretpass```")
         .catch(() => message.reply("📬 Your DM is closed. Kindly make sure your DM is open."));
@@ -24,7 +23,11 @@ exports.run = async (client, message) => {
     if (!(response.status == 200)) return message.author.send("Incorrect login details provided. Login create cancelled");
 
     var value = response.headers.get('set-cookie').split(';').findIndex(element => element.includes(".AspNetCore.Cookies"));
-    dbutils.insertData(message.author.id, info[0], response.headers.get('set-cookie').split(';')[value]);
+
+    let credentials = await client.db.prepare("SELECT * FROM userinfo WHERE id = @id;").get({ id: message.author.id });
+
+    if (credentials) client.db.prepare("UPDATE userinfo SET client_id = @client_id, cookie = @cookie WHERE id = @id;").run({ id: message.author.id, client_id: info[0], cookie: response.headers.get('set-cookie').split(';')[value] });
+    else client.db.prepare("INSERT INTO userinfo (id, client_id, cookie) VALUES (@id, @client_id, @cookie);").run({ id: message.author.id, client_id: info[0], cookie: response.headers.get('set-cookie').split(';')[value] });
 
     message.author.send("Success! your login is successfully stored.\nNote: We do not know or store your id and password");
 };

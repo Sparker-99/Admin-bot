@@ -1,15 +1,15 @@
 const { MessageEmbed } = require('discord.js');
 exports.run = async (client, message, args) => {
     if (args[0] && isNaN(args[0])) return message.channel.send('```css\nFormat:\nstatus <page number>```');
-    let infos = await client.function.fetchinfo(client.config.admin_id);
-    if (!infos) return message.channel.send('```css\nInstance with the provided admin id is not found```');
+    let infos = await client.function.fetchinfo(client.config.webfronturl);
+    if (!infos) return message.channel.send('```css\nInstance not reachable```');
 
     let offset;
-    let sername = infos[0];
-    let onlineplayers = infos[1];
-    let totalplayers = infos[2];
-    let mapcode = infos[3];
-    let gamename = infos[8];
+    let sername = infos.hostnames;
+    let onlineplayers = infos.players;
+    let totalplayers = infos.maxplayers;
+    let mapcode = infos.gamemap;
+    let gamename = infos.gamename;
     let max = client.config.results_perpage;
     let less = max - 1;
 
@@ -29,7 +29,7 @@ exports.run = async (client, message, args) => {
         }
     }
 
-    stat.setFooter(`Page: ${Math.ceil(offset / max)}/${maxpages}`);
+    stat.setFooter({ text: `Page: ${Math.ceil(offset / max)}/${maxpages}` });
     message.channel.send({ embeds: [stat] });
 };
 
