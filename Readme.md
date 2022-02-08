@@ -97,7 +97,6 @@ Create a discord application from [discord developers](https://discord.com/devel
 
 * `token` &mdash; Insert the bot token
 * `prefix` &mdash; Insert the bot prefix that is used before commands like !help
-* `webfronturl` &mdash; Insert the IW4M Admin webfront url. Example: https://nbsclan.org
 * `webfronturl` &mdash; Insert the IW4M Admin webfront url. In case of local refrain from using 127.0.0.1 or such use IPv4 or DHCP address.
   + Example: https://nbsclan.org, http://192.168.1.2
 * `results_perpage` &mdash; Insert a number from **1** upto **10** to set number of results per page of status and players command
