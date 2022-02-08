@@ -9,7 +9,7 @@
 </p>
 </div>
 
-### Version 3.0.6
+### Version 3.0.7
 
 _______
 
@@ -44,7 +44,7 @@ ___
 #### Prerequisites
 
 * [Node.js 16](https://nodejs.org/en/download) *or newer*
-* [IW4M Admin](https://raidmax.org/IW4MAdmin) version 2021.10.31.1 *or newer*
+* [IW4M Admin](https://raidmax.org/IW4MAdmin) version 2022.02.02.2 *or newer*
 
 #### Installation
 
@@ -77,7 +77,7 @@ Download [latest build](https://github.com/Sparker-99/Admin-bot/releases) and Ex
 + Existing `config.json` and `database` folder will be not overwritten by the update.
   + NOTE: any update of the `config_default.json` need to be merged manually by the user to the `config.json`.
 + Any edit done on default `commands` files will be lost. Consider backup or rename the file before update.
-+ Admin bot v3.0.5 or higher uses `Node 16` which kills any application with critical exceptions. So its recommended to use any program that restarts the bot.
++ Admin bot v3.0.5 or higher uses `Node 16` which kills any application with critical exceptions. So its recommended to use [PM2](https://pm2.keymetrics.io) or any program that restarts the bot.
 ___
 
 ### Configuration
@@ -88,11 +88,8 @@ Create a discord application from [discord developers](https://discord.com/devel
 
 * `token` &mdash; Insert the bot token
 * `prefix` &mdash; Insert the bot prefix that is used before commands like !help
-* `webfronturl` &mdash; Insert the IW4M Admin webfront url. Example: https://nbsclan.org
-* `admin_id` &mdash; Insert the `Id` from **IW4MAdminSettings.json** like the image below:
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://i.gyazo.com/acae63de9237f5b2c46c0c993e206a76.jpg)
-
+* `webfronturl` &mdash; Insert the IW4M Admin webfront url. In case of local refrain from using 127.0.0.1 or such use IPv4 or DHCP address.
+  + Example: https://nbsclan.org, http://192.168.1.2
 * `results_perpage` &mdash; Insert a number from **1** upto **10** to set number of results per page of status and players command
 
  #### Optional Configuration

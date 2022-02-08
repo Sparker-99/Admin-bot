@@ -13,8 +13,8 @@ exports.run = async (client, message, args) => {
     let max = response.length;
     let statmsg = new MessageEmbed()
         .setColor(client.color)
-        .setFooter(client.footer)
         .setThumbnail(client.thumbnail)
+        .setFooter({ text: client.footer })
         .setTitle(response[0].name.replace(/\^[0-9:;c]/g, '') + "'s Stat");
 
     for (i = 0; i < max; i++) {

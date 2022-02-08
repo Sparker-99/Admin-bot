@@ -7,6 +7,7 @@ if (!fs.existsSync("./config.json")) {
   process.exit();
 }
 
+client.ip;
 client.config = require("./config.json");
 client.function = require("./include/core.js");
 
