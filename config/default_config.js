@@ -8,7 +8,7 @@ module.exports = {
     },
 
     Client: {
-        TOKEN: "", // YOUR BOT TOKEN. (USE THIS ONLY IN VSCODE)
+        TOKEN: "", // YOUR BOT TOKEN.
         webfronturl: "",
         prefix: "!", // YOUR BOT PREFIX.
         results_perpage: "10",
