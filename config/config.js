@@ -1,7 +1,5 @@
 module.exports = {
 
-    Prefix: "!", 
-
     Users: {
         OWNERS: [""] // THE BOT OWNERS ID.
     },
