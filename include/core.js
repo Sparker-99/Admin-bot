@@ -1,52 +1,53 @@
 const fetch = require('node-fetch');
 module.exports = {
-    async configcheck(client) {
-        if (!client.config.token) {
+    async configcheck(client, config) {
+        //console.info('[INFO] Checking config...');
+        if (!config.Client.TOKEN) {
             console.log('No token detected in config file\nexiting....');
             process.exit();
         }
-        if (!client.config.prefix) {
+        if (!config.Client.prefix) {
             console.log('No prefix detected in config file\nexiting....');
             process.exit();
         }
-        if (!client.config.webfronturl || !(/(http(s?)):\/\//i.test(client.config.webfronturl))) {
+        if (!config.Client.webfronturl || !(/(http(s?)):\/\//i.test(config.Client.webfronturl))) {
             console.log('No valid webfront url detected in config file\nexiting....');
             process.exit();
         }
-        if (!(client.config.results_perpage > 0) || !(client.config.results_perpage < 11)) {
+        if (!(config.Client.results_perpage > 0) || !(config.Client.results_perpage < 11)) {
             console.log('Results per page must be between 1 to 10\nexiting....');
             process.exit();
         }
-        if (client.config.ownerid && isNaN(client.config.ownerid)) {
+        if (config.Client.ownerid && isNaN(config.Client.ownerid)) {
             console.log('Owner id must be a number\nexiting....');
             process.exit();
         }
-        if (client.config.webfronturl.slice(client.config.webfronturl.length - 1) === '/') {
-            client.config.webfronturl = client.config.webfronturl.slice(0, -1);
+        if (config.Client.webfronturl.slice(config.Client.webfronturl.length - 1) === '/') {
+            config.Client.webfronturl = config.Client.webfronturl.slice(0, -1);
         }
-        if (!client.config.custom_presence) {
-            client.config.custom_presence = client.config.prefix + 'help';
+        if (!config.Client.custom_presence) {
+            config.Client.custom_presence = config.Client.prefix + 'help';
         }
-        if (client.config.status_channel_id && isNaN(client.config.status_channel_id)) {
+        if (config.Client.status_channel_id && isNaN(config.Client.status_channel_id)) {
             console.log('Channel id must be a number\nexiting....');
             process.exit();
         }
-        if (client.config.statchan_update_interval && (isNaN(client.config.statchan_update_interval) || client.config.statchan_update_interval < 60)) {
+        if (config.Client.statchan_update_interval && (isNaN(config.Client.statchan_update_interval) || config.Client.statchan_update_interval < 60)) {
             console.log('Status channel update interval must be at least 60 seconds or more\nexiting....');
             process.exit();
         }
-        if (client.config.color) {
-            client.color = '#' + client.config.color.replace(/#/gi, '');
+        if (config.Client.color) {
+            client.color = '#' + config.Client.color.replace(/#/gi, '');
         } else
             client.color = '#007acc';
 
-        if (client.config.thumbnail_image_url) {
-            client.thumbnail = client.config.thumbnail_image_url;
+        if (config.Client.thumbnail_image_url) {
+            client.thumbnail = config.Client.thumbnail_image_url;
         } else
             client.thumbnail = 'https://i.gyazo.com/898c573e108fe755661265fc27ee7335.png';
 
-        if (client.config.footer) {
-            client.footer = client.config.footer;
+        if (config.Client.footer) {
+            client.footer = config.Client.footer;
         } else
             client.footer = 'Admin Bot version ' + require('../package.json').version;
     },
@@ -75,28 +76,30 @@ module.exports = {
             .then((res) => res.json())
             .catch(() => { console.log('\x1b[31mWarning: Webfront not reachable\x1b[0m') });
         if (response && response.length) {
+            let ids = [];
             let hostnames = [];
+            let servip = [];
+            let gamename = [];
             let players = [];
             let maxplayers = [];
             let gamemap = [];
             let gametype = [];
-            let servip = [];
             let gameparser = [];
-            let gamename = [];
             var total = response.length;
             for (i = 0; i < total; i++) {
                 if (response[i]) {
-                    hostnames[i] = (i + 1) + '. ' + response[i].hostname.replace(/\^[0-9:;c]/g, '');
+                    ids[i] = response[i].id
+                    hostnames[i] = (i + 1) + '. ' + response[i].serverName.replace(/\^[0-9:;c]/g, '');
+                    servip[i] = response[i].listenAddress + ':' + response[i].listenport;
+                    gamename[i] = response[i].game
                     players[i] = response[i].clientNum;
                     maxplayers[i] = response[i].maxClients;
                     gamemap[i] = response[i].currentMap.name;
                     gametype[i] = response[i].currentGameType.type;
-                    servip[i] = response[i].ip + ':' + response[i].port;
                     gameparser[i] = response[i].parser;
-                    gamename[i] = response[i].game
                 }
             }
-            return { hostnames, players, maxplayers, gamemap, gametype, servip, gameparser, gamename };
+            return { ids, hostnames, servip, gamename, players, maxplayers, gamemap, gametype, gameparser };
 
         } else return false;
     },
