@@ -2,7 +2,7 @@ const client = require("../../index");
 const colors = require("colors");
 const fetch = require('node-fetch');
 const dbutils = require('../../include/dbutils');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 const config = require("../../config/config.js");
 
 
@@ -44,12 +44,12 @@ client.once('ready', async (client) => {
         let embsl = Math.ceil(infos.hostnames.length / pages);
 
         for (i = 0; i < embsl; i++) {
-            embld[i] = new MessageEmbed().setColor(client.color);
+            embld[i] = new EmbedBuilder().setColor(config.Client.color);
             if (i == 0) embld[i].setTitle('Server Status').setThumbnail(client.thumbnail);
 
             for (g = 0; g < pages; g++) {
                 if (infos.hostnames[count]) {
-                    embld[i].addField(infos.hostnames[count], client.function.getmap(infos.gamemap[count], infos.gamename[count])[0] + ' - ' + infos.players[count] + '/' + infos.maxplayers[count], false);
+                    embld[i].addFields({name: infos.hostnames[count], value: client.function.getmap(infos.gamemap[count], infos.gamename[count])[0] + ' - ' + infos.players[count] + '/' + infos.maxplayers[count], inline: false});
                     count++;
                 }
             }
@@ -70,7 +70,9 @@ client.once('ready', async (client) => {
                 });
 
             if (!statchan) return;
-            if (!statchan.guild.me.permissionsIn(statchan).has(['SEND_MESSAGES', 'EMBED_LINKS'])) {
+            //message.member.permissions.has(PermissionsBitField.resolve(command.permissions
+            //if (!statchan.guild.me.permissionsIn(statchan).has(['SEND_MESSAGES', 'EMBED_LINKS'])) {
+            if (!statchan.guild.me.permissions.has(PermissionsBitField.resolve((['SendMessages', 'EmbedLinks'])))) {
                 console.log('\x1b[33mWarning: Send messages and embed links permissions are required in channel ' + statchan.name + '. Disabling autostatus\x1b[0m');
                 return clearInterval(init);
             }
