@@ -85,7 +85,7 @@ module.exports = (client, config) => {
     });
 
     // Registering all the application commands:
-    if (!config.Client.ID) {
+    if (!config.Client.clientid) {
         console.log("[CRASH] You need to provide your bot ID in config.js!".red + "\n");
         return process.exit();
     };
@@ -97,7 +97,7 @@ module.exports = (client, config) => {
 
         try {
             await rest.put(
-                Routes.applicationCommands(config.Client.ID),
+                Routes.applicationCommands(config.Client.clientid),
                 { body: commands }
             );
 
