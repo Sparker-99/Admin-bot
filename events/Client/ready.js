@@ -17,7 +17,6 @@ module.exports = {
 client.once('ready', async (client) => {
 
     async function presence() {
-        console.warn("[!]Presence function started.".yellow);
         let infos = await client.function.fetchinfo(config.Client.webfronturl);
         if (infos) {
             var currplayers = infos.players.reduce((a, b) => a + b, 0);
