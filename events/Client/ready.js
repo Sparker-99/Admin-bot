@@ -72,7 +72,7 @@ client.once('ready', async (client) => {
             if (!statchan) return;
             //message.member.permissions.has(PermissionsBitField.resolve(command.permissions
             //if (!statchan.guild.me.permissionsIn(statchan).has(['SEND_MESSAGES', 'EMBED_LINKS'])) {
-            if (!statchan.guild.me.permissions.has(PermissionsBitField.resolve((['SendMessages', 'EmbedLinks'])))) {
+            if (!statchan.guild.members.me.permissions.has(PermissionsBitField.resolve((['SendMessages', 'EmbedLinks'])))) {
                 console.log('\x1b[33mWarning: Send messages and embed links permissions are required in channel ' + statchan.name + '. Disabling autostatus\x1b[0m');
                 return clearInterval(init);
             }
