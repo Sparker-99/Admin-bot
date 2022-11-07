@@ -18,14 +18,7 @@ const client = new Client({
         Partials.User,
         Partials.GuildMember,
         Partials.Reaction
-    ],
-    presence: {
-        activities: [{
-            name: "Admin-bot is starting...",
-            type: 0
-        }],
-        status: 'dnd'
-    }
+    ]
 });
 
 // Host the bot:

@@ -19,8 +19,8 @@ module.exports = {
         thumbnail_image_url: "",
         footer: "  ",
         ownerid: "", // THE BOT OWNERS ID.
-        clientId: "",
-        guildId: ""
+        clientId: "", // THE BOT CLIENT ID.
+        guildId: "" // THE GUILD ID WHERE THE BOT IS IN.
     }
 
 }

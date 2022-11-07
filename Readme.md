@@ -51,7 +51,8 @@ ___
 * Windows
   + Install Node.js
   + Extract `Admin-bot.zip`
-  + Edit `config.js` (add your token, prefix, webfronturl and adminid)
+  + copy `config/default_config.js`, name it `config.js` and edit it
+  + Edit `config/config.js` (add your token, prefix, webfronturl and adminid)
   + Open console inside the **admin bot's** directory, type `npm i` and hit enter
   + Run `StartAdminBot.cmd` or `npm start` in command prompt
 
@@ -63,7 +64,8 @@ ___
   + `git clone https://github.com/Sparker-99/Admin-bot.git`
   + `cd Admin-bot`
   + `npm i`
-  + `nano config.js` (add your token, prefix, webfronturl and adminid)
+  + `cp config/default_config.js config/config.js`
+  + `nano config/config.js` (add your token, prefix, webfronturl and adminid)
   + `chmod +x ./StartAdminBot.sh`
   + `./StartAdminBot.sh`
 To host the discordBot on any other Linux distro You have to install nodejs and npm for your distro, then the rest is the same on all other Linux Distro.
@@ -73,8 +75,8 @@ ___
 
 Download [latest build](https://github.com/Sparker-99/Admin-bot/releases) and Extract into old version directory.
 + Existing `database` folder will be not overwritten by the update.
-  + NOTE: any update of the default `config.js` file will need to be merged manually by the user to the user's existing '`config.js` file.
-+ Any edit done on default `commands` or `config.js` files will be lost. Consider backup or rename the file before update.
+  + NOTE: any update of the  `default_config.js` file will need to be merged manually by the user to the user's existing '`config.js` file.
++ Any edit done on default `commands` files will be lost. Consider backup or rename the files before update.
 + Admin bot v3.0.5 or higher uses `Node 16` which kills any application with critical exceptions. So its recommended to use [PM2](https://pm2.keymetrics.io) or any program that restarts the bot.
 ___
 
