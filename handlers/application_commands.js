@@ -63,16 +63,16 @@ module.exports = (client, config) => {
     // Message commands handler:
 fs.access('./commands/message/', fs.constants.F_OK, (err) => {
     if (err)
-        console.error('[HANDLER - Message] No Read access to ./commands/message/'.red);
+    {
+
+    }
     else
     {
         
         const messages = fs.readdirSync('./commands/message/');
-        console.log(`[HANDLER - Message] ./commands/message/ has ${Object.keys(messages).length} elements`.brightGreen);
         if(Object.keys(messages).length > 0)
         {
             messages.forEach((dir) => {
-            console.log(`[HANDLER - Message] ./commands/message/${dir} exists`.brightGreen);
             console.log('[!] Started loading message commands...'.yellow);
             const files = fs.readdirSync(`./commands/message/${dir}`);
             if(Object.keys(files).length > 0)
