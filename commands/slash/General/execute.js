@@ -28,6 +28,7 @@ module.exports = {
         function timer(ms) { return new Promise(res => setTimeout(res, ms)); }
 
         let i = 0;
+
         Object.values(infos.hostnames).forEach(o => {
             objects.push({
                 label: `${o}`,
