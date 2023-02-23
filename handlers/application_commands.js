@@ -61,28 +61,57 @@ module.exports = (client, config) => {
     });
 
     // Message commands handler:
-    fs.readdirSync('./commands/message/').forEach((dir) => {
-        console.log('[!] Started loading message commands...'.yellow);
-        const UserCommands = fs.readdirSync(`./commands/message/${dir}`).filter((file) => file.endsWith('.js'));
+fs.access('./commands/message/', fs.constants.F_OK, (err) => {
+    if (err)
+    {
 
-        for (let file of UserCommands) {
-            let pull = require(`../commands/message/${dir}/${file}`);
+    }
+    else
+    {
+        
+        const messages = fs.readdirSync('./commands/message/');
+        if(Object.keys(messages).length > 0)
+        {
+            messages.forEach((dir) => {
+            console.log('[!] Started loading message commands...'.yellow);
+            const files = fs.readdirSync(`./commands/message/${dir}`);
+            if(Object.keys(files).length > 0)
+            {
+                const UserCommands = files.filter((file) => file.endsWith('.js'));
+                if(Object.keys(UserCommands).length > 0)
+                {
+                    for (let file of UserCommands) {
+                        let pull = require(`../commands/message/${dir}/${file}`);
 
-            if (pull.name, pull.type == 3) {
-                client.message_commands.set(pull.name, pull);
-                console.log(`[HANDLER - MESSAGE] Loaded a file: ${pull.name} (#${client.user_commands.size})`.brightGreen);
+                        if (pull.name, pull.type == 3) {
+                            client.message_commands.set(pull.name, pull);
+                            console.log(`[HANDLER - MESSAGE] Loaded a file: ${pull.name} (#${client.user_commands.size})`.brightGreen);
 
-                commands.push({
-                    name: pull.name,
-                    type: pull.type || 3,
-                });
+                            commands.push({
+                                name: pull.name,
+                                type: pull.type || 3,
+                            });
 
-            } else {
-                console.log(`[HANDLER - MESSAGE] Couldn't load the file ${file}, missing module name value or type isn't 2.`.red)
-                continue;
-            };
-        };
-    });
+                        }
+                        else {
+                            console.log(`[HANDLER - MESSAGE] Couldn't load the file ${file}, missing module name value or type isn't 2.`.red)
+                            continue;
+                        }
+                    }
+                }
+            }
+            });
+
+
+    
+        }
+    }
+
+});
+
+
+
+
 
     // Registering all the application commands:
     if (!config.Client.clientId) {
