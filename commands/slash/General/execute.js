@@ -27,7 +27,7 @@ module.exports = {
         if (!infos) return interaction.editReply({ ephemeral: true, content: '```css\nInstance not reachable```' });
         function timer(ms) { return new Promise(res => setTimeout(res, ms)); }
 
-        let i = 1;
+        let i = 0;
         Object.values(infos.hostnames).forEach(o => {
             objects.push({
                 label: `${o}`,
