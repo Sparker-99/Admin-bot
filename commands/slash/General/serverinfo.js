@@ -38,7 +38,7 @@ module.exports = {
             .addFields({ name: 'Gametype', value: client.function.getmode(infos.gametype[inp]).toString(), inline: true })
             .addFields({ name: 'Map', value: mapdata[0], inline: false})
             .addFields({ name: 'Client', value: data[0] + ' [[Connect](https://applauncher.herokuapp.com/redirect?url=' + data[1] + ')]', inline: true })
-            .setFooter({ text: 'ID: ' + infos.servip[inp].replace(/[^0-9]/g, ''), icon_url: client.function.getgame(infos.gamename[inp])[1].replace(/ukn/g, client.thumbnail) })
+            .setFooter({ text: 'ID: ' + infos.ids[inp], icon_url: client.function.getgame(infos.gamename[inp])[1].replace(/ukn/g, client.thumbnail) })
         interaction.editReply({ embeds: [msg], ephemeral: true });
     },
 };
