@@ -1,4 +1,4 @@
-const { EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, SelectMenuBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
+const { EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, StringSelectMenuBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const fetch = require('node-fetch');
 const dbutils = require('../../../include/dbutils');
 
@@ -38,7 +38,7 @@ module.exports = {
             i++;
         });
 
-        const id = new SelectMenuBuilder()
+        const id = new StringSelectMenuBuilder()
             .setCustomId('id' +timestamp)
             .setPlaceholder('')
             .addOptions(objects);
@@ -50,7 +50,7 @@ module.exports = {
         await interaction.editReply({ ephemeral: true, content: 'Select server to send command', components: [ActionRow] });
 
         client.on('interactionCreate', interaction => {
-            if (!interaction.isSelectMenu() && interaction.isCommand()) return;
+            if (!interaction.isStringSelectMenu() && interaction.isCommand()) return;
             if (interaction.customId !== 'id' + timestamp) return;
             if (interaction.customId === 'id' + timestamp) {
                 interaction.update({ ephemeral: true, content: 'server was selected!', components: [] })
@@ -67,7 +67,7 @@ module.exports = {
             await interaction.followUp({ ephemeral: true, content: `execute command timed out` })
         }
         else {
-            var serverid = infos.servip[sid].replace(/[^0-9]/g, '');
+            var serverid = infos.ids[sid];
             let data = await client.function.execute(config.Client.webfronturl, serverid, dbresponse.cookie, command);
 
             if (data[0] === 404) return interaction.followUp({ ephemeral: true, content: "Cannot establish connection to <" + config.Client.webfronturl + ">" });
