@@ -67,7 +67,7 @@ module.exports = {
             await interaction.followUp({ ephemeral: true, content: `execute command timed out` })
         }
         else {
-            var serverid = infos.servip[sid].replace(/[^0-9]/g, '');
+            var serverid = infos.ids[sid];
             let data = await client.function.execute(config.Client.webfronturl, serverid, dbresponse.cookie, command);
 
             if (data[0] === 404) return interaction.followUp({ ephemeral: true, content: "Cannot establish connection to <" + config.Client.webfronturl + ">" });
