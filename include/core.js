@@ -76,28 +76,30 @@ module.exports = {
             .then((res) => res.json())
             .catch(() => { console.log('\x1b[31mWarning: Webfront not reachable\x1b[0m') });
         if (response && response.length) {
+            let ids = [];
             let hostnames = [];
+            let servip = [];
+            let gamename = [];
             let players = [];
             let maxplayers = [];
             let gamemap = [];
             let gametype = [];
-            let servip = [];
             let gameparser = [];
-            let gamename = [];
             var total = response.length;
             for (i = 0; i < total; i++) {
                 if (response[i]) {
-                    hostnames[i] = (i + 1) + '. ' + response[i].hostname.replace(/\^[0-9:;c]/g, '');
+                    ids[i] = response[i].id
+                    hostnames[i] = (i + 1) + '. ' + response[i].serverName.replace(/\^[0-9:;c]/g, '');
+                    servip[i] = response[i].listenAddress + ':' + response[i].listenport;
+                    gamename[i] = response[i].game
                     players[i] = response[i].clientNum;
                     maxplayers[i] = response[i].maxClients;
                     gamemap[i] = response[i].currentMap.name;
                     gametype[i] = response[i].currentGameType.type;
-                    servip[i] = response[i].ip + ':' + response[i].port;
                     gameparser[i] = response[i].parser;
-                    gamename[i] = response[i].game
                 }
             }
-            return { hostnames, players, maxplayers, gamemap, gametype, servip, gameparser, gamename };
+            return { ids, hostnames, servip, gamename, players, maxplayers, gamemap, gametype, gameparser };
 
         } else return false;
     },
