@@ -71,23 +71,18 @@ To host the discordBot on any other Linux distro You have to install nodejs and 
 ___
 ### Updating to new release version
 
-Download [latest build](https://github.com/Sparker-99/Admin-bot/releases) and Extract into old version directory.
+Download [latest build](https://github.com/Sparker-99/Admin-bot/releases) and Extract into old version directory, unless otherwise specified.
 + Existing `database` folder will be not overwritten by the update.
   + NOTE: any update of the  `default_config.js` file will need to be merged manually by the user to the user's existing '`config.js` file.
 + Any edit done on default `commands` files will be lost. Consider backup or rename the files before update.
 + Admin bot v3.0.5 or higher uses `Node 16` which kills any application with critical exceptions. So its recommended to use [PM2](https://pm2.keymetrics.io) or any program that restarts the bot.
 ___
-### Updating from release to beta
-Download [archive of latest commit](https://github.com/Sparker-99/Admin-bot/archive/refs/heads/Beta.zip) and Extract into new directory.
-  + NOTE: Do not overwrite release build with beta build.
-+ Copy old database directory over
-+ use default_config.js example to create new config.js
-  + NOTE: release config is not compatible with beta
-___
-### Updating to new beta version
+### Updating from 3.x.x to 4.x.x
 
-Download [archive of latest commit](https://github.com/Sparker-99/Admin-bot/archive/refs/heads/Beta.zip) or clone repo. and Extract into old version directory.
-+ Existing `database` folder will be not overwritten by the update.
+Download [latest build](https://github.com/Sparker-99/Admin-bot/releases) and Extract into new directory.
++ Existing `database` should be copied into new bot directory.
++ Copy `default_config.js` from `config` directory, and paste as `config.js`
++ Open old config.json and use it to fill out new config.js
   + NOTE: any update of the  `default_config.js` file will need to be merged manually by the user to the user's existing '`config.js` file.
 + Any edit done on default `commands` files will be lost. Consider backup or rename the files before update.
 + Admin bot v3.0.5 or higher uses `Node 16` which kills any application with critical exceptions. So its recommended to use [PM2](https://pm2.keymetrics.io) or any program that restarts the bot.
