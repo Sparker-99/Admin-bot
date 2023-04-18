@@ -1,6 +1,6 @@
 {
   "name": "adminbot",
-  "version": "3.0.7",
+  "version": "4.0.0",
   "description": "Discord bot for IW4M Admin",
   "main": "index.js",
   "scripts": {

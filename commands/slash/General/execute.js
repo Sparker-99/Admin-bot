@@ -39,39 +39,31 @@ module.exports = {
         if (!infos) return interaction.editReply({ ephemeral: true, content: '```css\nInstance not reachable```' });
         function timer(ms) { return new Promise(res => setTimeout(res, ms)); }
 
+        let options = infos.hostnames.map((server) => ({
 
-let options = [...Array(30).keys()].map((server) => ({
+            label: `${server}`,
+            description: `map= ${infos.gamemap[i]}`,
+            value:`${++i}`,
+        }));
 
-    label: `${server}`,
-    description: `map= ${server}`,
-    value:`${server}`,
-}));
-
-        let options2 = infos.hostnames.map((server) => ({
-
-    label: `${server}`,
-    description: `map= ${infos.gamemap[i]}`,
-    value:`${++i}`,
-  }));
-
-  let selectMenus = [
-    new ActionRowBuilder().addComponents(
-      new StringSelectMenuBuilder()
-        .setCustomId('id' +timestamp)
-        .setPlaceholder('Nothing selected')
-        .addOptions([
-          {
-            label: `Cancel`,
-            description: 'Cancel the server selection',
-            value: 'cancel',
-          },
-        ]),
-    ),
-  ];
-      if (options.length <= 24) {
+        let selectMenus = [
+        new ActionRowBuilder().addComponents(
+            new StringSelectMenuBuilder()
+            .setCustomId('id' +timestamp)
+            .setPlaceholder('Nothing selected')
+            .addOptions([
+                {
+                label: `Cancel`,
+                description: 'Cancel the server selection',
+                value: 'cancel',
+                },
+            ]),
+        ),
+        ];
+        if (options.length <= 24) {
         selectMenus[0].components[0].addOptions(options);
     
-      }
+        }
     else
     {
         const chunks = chunkify(options, 24);
@@ -92,7 +84,7 @@ let options = [...Array(30).keys()].map((server) => ({
         });
     }
 
-await interaction.editReply({ephemeral: true, content: 'Select server to send command', components: selectMenus });
+        await interaction.editReply({ephemeral: true, content: 'Select server to send command', components: selectMenus });
 
         let sid;
         client.on('interactionCreate', interaction => {

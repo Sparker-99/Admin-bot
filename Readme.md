@@ -9,7 +9,7 @@
 </p>
 </div>
 
-### Version 3.0.7
+### Version 4.0.0
 
 _______
 
@@ -53,8 +53,7 @@ ___
   + Extract `Admin-bot.zip`
   + copy `config/default_config.js`, name it `config.js` and edit it
   + Edit `config/config.js` (add your token, prefix, webfronturl and adminid)
-  + Open console inside the **admin bot's** directory, type `npm i` and hit enter
-  + Run `StartAdminBot.cmd` or `npm start` in command prompt
+  + Run `StartAdmin-bot.cmd` or `npm start` in command prompt
 
 * Linux (Ubuntu 20:04)
   + Open Terminal and type:
@@ -142,7 +141,7 @@ ___
 * [Martian](https://github.com/saiteja-madha)
 * [Zwambro](https://github.com/Zwambro)
 * [Pickle Rick](https://github.com/LelieL91)
-* [Insanemode](https://github.com/INSANEMODE)
+* [INSANEMODE](https://github.com/INSANEMODE)
 
 ### Credits
 *[TFAGaming](https://github.com/TFAGaming) for creating [DiscordJS-V14-Bot-Template](https://github.com/TFAGaming/DiscordJS-V14-Bot-Template)
