@@ -2,6 +2,16 @@ const { EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowB
 const fetch = require('node-fetch');
 const dbutils = require('../../../include/dbutils');
 
+function chunkify(arr, len) {
+  let chunks = [];
+  let i = 0;
+  let n = arr.length;
+
+  while (i < n)
+    chunks.push(arr.slice(i, (i += len)));
+
+  return chunks;
+}
 module.exports = {
     name: "execute",
     description: "gets game servers status",
@@ -30,7 +40,14 @@ module.exports = {
         function timer(ms) { return new Promise(res => setTimeout(res, ms)); }
 
 
-        let options = infos.hostnames.map((server) => ({
+let options = [...Array(30).keys()].map((server) => ({
+
+    label: `${server}`,
+    description: `map= ${server}`,
+    value:`${server}`,
+}));
+
+        let options2 = infos.hostnames.map((server) => ({
 
     label: `${server}`,
     description: `map= ${infos.gamemap[i]}`,
@@ -65,8 +82,8 @@ module.exports = {
 
         else
             selectMenus.push(
-            new MessageActionRow().addComponents(
-                new MessageSelectMenu()
+            new ActionRowBuilder().addComponents(
+                new StringSelectMenuBuilder()
                 .setCustomId(`id` +timestamp + `-${k}`)
                 .setPlaceholder('Nothing selected')
                 .addOptions(options),
