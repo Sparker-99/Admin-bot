@@ -23,51 +23,84 @@ module.exports = {
 
         var command = interaction.options.get('command')?.value;
         let objects = [];
-        let infos = await client.function.fetchinfo(config.Client.webfronturl);
+        let i = 0
+        let infos = await client.function.fetchinfo(config.Client.webfronturl)
+
         if (!infos) return interaction.editReply({ ephemeral: true, content: '```css\nInstance not reachable```' });
         function timer(ms) { return new Promise(res => setTimeout(res, ms)); }
 
-        let i = 0;
 
-        Object.values(infos.hostnames).forEach(o => {
-            objects.push({
-                label: `${o}`,
-                description: `map: ${infos.gamemap[i]}`,
-                value: `${i + 1}`
-            });
-            i++;
+        let options = infos.hostnames.map((server) => ({
+
+    label: `${server}`,
+    description: `map= ${infos.gamemap[i]}`,
+    value:`${++i}`,
+  }));
+
+  let selectMenus = [
+    new ActionRowBuilder().addComponents(
+      new StringSelectMenuBuilder()
+        .setCustomId('id' +timestamp)
+        .setPlaceholder('Nothing selected')
+        .addOptions([
+          {
+            label: `Cancel`,
+            description: 'Cancel the server selection',
+            value: 'cancel',
+          },
+        ]),
+    ),
+  ];
+      if (options.length <= 24) {
+        selectMenus[0].components[0].addOptions(options);
+    
+      }
+    else
+    {
+        const chunks = chunkify(options, 24);
+
+        chunks.forEach((options, k) => {
+        if (k === 0)
+            selectMenus[0].components[0].addOptions(options);
+
+        else
+            selectMenus.push(
+            new MessageActionRow().addComponents(
+                new MessageSelectMenu()
+                .setCustomId(`id` +timestamp + `-${k}`)
+                .setPlaceholder('Nothing selected')
+                .addOptions(options),
+            ),
+            );
         });
+    }
 
-        const id = new StringSelectMenuBuilder()
-            .setCustomId('id' +timestamp)
-            .setPlaceholder('')
-            .addOptions(objects);
-            
-
-        const ActionRow = new ActionRowBuilder().addComponents(id);
+await interaction.editReply({ephemeral: true, content: 'Select server to send command', components: selectMenus });
 
         let sid;
-        await interaction.editReply({ ephemeral: true, content: 'Select server to send command', components: [ActionRow] });
-
         client.on('interactionCreate', interaction => {
             if (!interaction.isStringSelectMenu() && interaction.isCommand()) return;
-            if (interaction.customId !== 'id' + timestamp) return;
-            if (interaction.customId === 'id' + timestamp) {
+            if (!interaction.customId.includes('id' + timestamp) ) return;
+            if (interaction.customId.includes('id' + timestamp)) {
                 interaction.update({ ephemeral: true, content: 'server was selected!', components: [] })
                     .catch(console.error);
-                sid = interaction.values[0];   
+                sid = interaction.values[0]; 
             }
         });
-        let j = 0;
-        while (!sid && i < 300 ) {
+        let p = 0;
+        while (!sid && p < 300 ) {
             await timer(1000);
-            j++;
+            p++;
         }
         if (!sid) {
             await interaction.followUp({ ephemeral: true, content: `execute command timed out` })
         }
+        else if(sid.includes('cancel'))
+        {
+            await interaction.followUp({ ephemeral: true, content: `execute command cancelled` })
+        }
         else {
-            var serverid = infos.ids[sid];
+            var serverid = infos.ids[sid-1];
             let data = await client.function.execute(config.Client.webfronturl, serverid, dbresponse.cookie, command);
 
             if (data[0] === 404) return interaction.followUp({ ephemeral: true, content: "Cannot establish connection to <" + config.Client.webfronturl + ">" });
