@@ -1,6 +1,6 @@
 {
   "name": "adminbot",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Discord bot for IW4M Admin",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,8 @@
     "quick.db": "^9.0.5",
     "fs": "^0.0.1-security",
     "node-json-db": "^1.4.1",
-    "string-table": "^0.1.5"
+    "string-table": "^0.1.5",
+    "joi": "^17.9.1"
   },
   "repository": {
     "type": "git",
